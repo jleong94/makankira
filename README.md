@@ -630,11 +630,22 @@ Features:
 - Enable Web Push: prompt the browser for permission and register a push subscription (Android and desktop browsers; not available on iOS).
 - Email reminders work on all devices, including iOS.
 
+### Screen 2D: Profile
+
+Purpose: let the signed-in user maintain the personal details that pre-fill forms across the app.
+
+Features:
+
+- Edit **display name** (defaults to the name from Google/Facebook; the user can override it).
+- Enter / edit **mobile number** (Malaysian formats; used for WhatsApp/contact links and for prefill).
+- Email and profile photo are shown read-only from the login provider.
+- These values are the source for auto-prefill: the organizer's name and contact on Meal Setup (Screen 3), and the participant's name and mobile on the Order Form (Screen 5).
+
 ### Screen 3: Meal Setup
 
 Purpose: configure restaurant, date/time, and payment details.
 
-The payment fields below are **auto-prefilled from the organizer's saved Payment Defaults** (Screen 2B) when the session is created. The organizer can adjust them for this session without changing their saved profile defaults.
+**Organizer name** and **contact** are pre-filled from the user's Profile (Screen 2D: name + mobile number), and the payment fields are **auto-prefilled from the saved Payment Defaults** (Screen 2B), when the session is created. The organizer can adjust any of them for this session without changing their saved profile values.
 
 Fields:
 
@@ -671,6 +682,8 @@ Features:
 ### Screen 5: Participant Order Form
 
 Purpose: allow each participant to submit their order.
+
+For a signed-in user adding their own order (the organizer, or a future signed-in participant), **only the name and mobile number are pre-filled** from their Profile (Screen 2D) and remain editable — no payment details are ever prefilled here (those are the organizer's receiving methods, configured only in Meal Setup). For participants entered manually by the organizer, the fields start blank.
 
 Features:
 
@@ -754,6 +767,7 @@ These are the API/domain object shapes the `/api` layer exchanges with the UI: *
   "providerUserId": "google_123456789",
   "email": "organizer@example.com",
   "displayName": "Wei Ming",
+  "mobileNumber": "0123456789",
   "photoUrl": "https://example.com/profile.jpg",
   "preferredLanguage": "en",
   "createdAt": "2026-06-24T19:00:00Z",
@@ -1042,6 +1056,11 @@ All participants have paid or the organizer manually closes the session.
 - Estimated price and actual price must be zero or greater.
 - Actual price is required before final payment calculation.
 
+### Profile
+
+- Display name defaults from the auth provider and is editable; it must not be empty after editing.
+- Profile mobile number is optional but, if provided, must use a supported Malaysian format (`0123456789`, `60123456789`, `+60123456789`) and is normalized for WhatsApp/contact links.
+
 ### Orders
 
 - Participant name is required.
@@ -1085,6 +1104,7 @@ Included:
 - Support farewell meal mode with one or more non-paying honorees.
 - Calculate amount owed by participant.
 - Configure bank account, DuitNow ID, and DuitNow QR image as receiving payment methods.
+- Account profile with editable name and mobile number that pre-fill the organizer's meal setup and the user's own order form.
 - Save reusable payment methods on the account profile (Payment Defaults) that auto-prefill into each new meal session.
 - Remind the organizer to submit the order before meal time, by email and Web Push, scheduled via a free GitHub Actions cron.
 - Generate copyable payment messages.
@@ -1606,6 +1626,7 @@ CREATE TABLE users (
   provider_user_id   TEXT NOT NULL,
   email              TEXT,
   display_name       TEXT,
+  mobile_number      TEXT,
   photo_url          TEXT,
   preferred_language TEXT NOT NULL DEFAULT 'en' CHECK (preferred_language IN ('en','zh','ms')),
   created_at         TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ','now')),
@@ -1870,7 +1891,7 @@ All endpoints live under `/api` in the same Vercel app (Section 15) and exchange
 | POST | `/api/auth/login` | Public | Verify `{provider, credential}` server-side, upsert user, set session cookie (Screen 1) |
 | POST | `/api/auth/logout` | User | Clear the session (Screen 1) |
 | GET | `/api/auth/me` | User | Current user; used for the login-session loading state (Screens 1, 2) |
-| PATCH | `/api/me` | User | Update `displayName` / `preferredLanguage` (Screen 2A) |
+| PATCH | `/api/me` | User | Update profile: `displayName`, `mobileNumber`, `preferredLanguage` (Screens 2A, 2D) |
 
 Note: with **Auth.js (`@auth/core`)** the actual auth routes are provided by the library (for example `/api/auth/signin`, `/api/auth/callback/:provider`, `/api/auth/session`, `/api/auth/csrf`). The `POST /api/auth/login` and `GET /api/auth/me` rows above are a conceptual simplification mapped onto those routes.
 
