@@ -891,6 +891,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Calculate first to generate payment requests.'**
   String get noPaymentRequests;
+
+  /// No description provided for @displayName.
+  ///
+  /// In en, this message translates to:
+  /// **'Display name'**
+  String get displayName;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @paymentDefaults.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment defaults'**
+  String get paymentDefaults;
+
+  /// No description provided for @notifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notifications;
+
+  /// No description provided for @addPaymentMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Add method'**
+  String get addPaymentMethod;
+
+  /// No description provided for @methodType.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get methodType;
+
+  /// No description provided for @methodBank.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank account'**
+  String get methodBank;
+
+  /// No description provided for @methodDuitNowId.
+  ///
+  /// In en, this message translates to:
+  /// **'DuitNow ID'**
+  String get methodDuitNowId;
+
+  /// No description provided for @methodDuitNowQr.
+  ///
+  /// In en, this message translates to:
+  /// **'DuitNow QR'**
+  String get methodDuitNowQr;
+
+  /// No description provided for @methodCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
+  String get methodCustom;
+
+  /// No description provided for @bankName.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank'**
+  String get bankName;
+
+  /// No description provided for @accountName.
+  ///
+  /// In en, this message translates to:
+  /// **'Account name'**
+  String get accountName;
+
+  /// No description provided for @accountNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Account number'**
+  String get accountNumber;
+
+  /// No description provided for @duitNowIdLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'DuitNow ID'**
+  String get duitNowIdLabel;
+
+  /// No description provided for @instructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructions'**
+  String get instructions;
+
+  /// No description provided for @setDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Set as default'**
+  String get setDefault;
+
+  /// No description provided for @defaultLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Default'**
+  String get defaultLabel;
+
+  /// No description provided for @noSavedMethods.
+  ///
+  /// In en, this message translates to:
+  /// **'No saved methods yet.'**
+  String get noSavedMethods;
+
+  /// No description provided for @profileSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile saved'**
+  String get profileSaved;
 }
 
 class _AppLocalizationsDelegate

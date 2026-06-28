@@ -403,4 +403,61 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get noPaymentRequests => '请先计算以生成付款请求。';
+
+  @override
+  String get displayName => '显示名称';
+
+  @override
+  String get email => '电子邮件';
+
+  @override
+  String get paymentDefaults => '默认收款方式';
+
+  @override
+  String get notifications => '通知';
+
+  @override
+  String get addPaymentMethod => '添加方式';
+
+  @override
+  String get methodType => '类型';
+
+  @override
+  String get methodBank => '银行账户';
+
+  @override
+  String get methodDuitNowId => 'DuitNow ID';
+
+  @override
+  String get methodDuitNowQr => 'DuitNow QR';
+
+  @override
+  String get methodCustom => '自定义';
+
+  @override
+  String get bankName => '银行';
+
+  @override
+  String get accountName => '账户名称';
+
+  @override
+  String get accountNumber => '账号';
+
+  @override
+  String get duitNowIdLabel => 'DuitNow ID';
+
+  @override
+  String get instructions => '说明';
+
+  @override
+  String get setDefault => '设为默认';
+
+  @override
+  String get defaultLabel => '默认';
+
+  @override
+  String get noSavedMethods => '尚未保存收款方式。';
+
+  @override
+  String get profileSaved => '资料已保存';
 }

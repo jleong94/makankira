@@ -26,6 +26,12 @@ class AuthController extends AsyncNotifier<AppUser?> {
     await ref.read(apiClientProvider).postJson('/auth/logout');
     state = const AsyncData(null);
   }
+
+  /// Update the signed-in user's profile (displayName, mobileNumber, preferredLanguage).
+  Future<void> updateProfile(Map<String, dynamic> body) async {
+    final data = await ref.read(apiClientProvider).patchJson('/me', body: body);
+    state = AsyncData(AppUser.fromJson(data['user'] as Map<String, dynamic>));
+  }
 }
 
 final authProvider = AsyncNotifierProvider<AuthController, AppUser?>(AuthController.new);

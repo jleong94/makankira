@@ -28,6 +28,11 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         actions: [
           const LanguageMenu(),
           IconButton(
+            tooltip: l.settings,
+            icon: const Icon(Icons.settings_outlined),
+            onPressed: () => context.push('/settings'),
+          ),
+          IconButton(
             tooltip: l.signOut,
             icon: const Icon(Icons.logout),
             onPressed: () => ref.read(authProvider.notifier).signOut(),

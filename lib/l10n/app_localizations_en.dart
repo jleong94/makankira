@@ -408,4 +408,61 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noPaymentRequests =>
       'Calculate first to generate payment requests.';
+
+  @override
+  String get displayName => 'Display name';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get paymentDefaults => 'Payment defaults';
+
+  @override
+  String get notifications => 'Notifications';
+
+  @override
+  String get addPaymentMethod => 'Add method';
+
+  @override
+  String get methodType => 'Type';
+
+  @override
+  String get methodBank => 'Bank account';
+
+  @override
+  String get methodDuitNowId => 'DuitNow ID';
+
+  @override
+  String get methodDuitNowQr => 'DuitNow QR';
+
+  @override
+  String get methodCustom => 'Custom';
+
+  @override
+  String get bankName => 'Bank';
+
+  @override
+  String get accountName => 'Account name';
+
+  @override
+  String get accountNumber => 'Account number';
+
+  @override
+  String get duitNowIdLabel => 'DuitNow ID';
+
+  @override
+  String get instructions => 'Instructions';
+
+  @override
+  String get setDefault => 'Set as default';
+
+  @override
+  String get defaultLabel => 'Default';
+
+  @override
+  String get noSavedMethods => 'No saved methods yet.';
+
+  @override
+  String get profileSaved => 'Profile saved';
 }

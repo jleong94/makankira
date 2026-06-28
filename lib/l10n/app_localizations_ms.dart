@@ -407,4 +407,61 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get noPaymentRequests => 'Kira dahulu untuk jana permintaan bayaran.';
+
+  @override
+  String get displayName => 'Nama paparan';
+
+  @override
+  String get email => 'E-mel';
+
+  @override
+  String get paymentDefaults => 'Kaedah bayaran lalai';
+
+  @override
+  String get notifications => 'Pemberitahuan';
+
+  @override
+  String get addPaymentMethod => 'Tambah kaedah';
+
+  @override
+  String get methodType => 'Jenis';
+
+  @override
+  String get methodBank => 'Akaun bank';
+
+  @override
+  String get methodDuitNowId => 'DuitNow ID';
+
+  @override
+  String get methodDuitNowQr => 'DuitNow QR';
+
+  @override
+  String get methodCustom => 'Tersuai';
+
+  @override
+  String get bankName => 'Bank';
+
+  @override
+  String get accountName => 'Nama akaun';
+
+  @override
+  String get accountNumber => 'Nombor akaun';
+
+  @override
+  String get duitNowIdLabel => 'DuitNow ID';
+
+  @override
+  String get instructions => 'Arahan';
+
+  @override
+  String get setDefault => 'Jadikan lalai';
+
+  @override
+  String get defaultLabel => 'Lalai';
+
+  @override
+  String get noSavedMethods => 'Belum ada kaedah disimpan.';
+
+  @override
+  String get profileSaved => 'Profil disimpan';
 }

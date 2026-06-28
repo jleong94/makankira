@@ -12,6 +12,9 @@ import '../features/billing/bill_screen.dart';
 import '../features/orders/order_form_screen.dart';
 import '../features/orders/orders_screen.dart';
 import '../features/payments/payment_requests_screen.dart';
+import '../features/settings/payment_defaults_screen.dart';
+import '../features/settings/profile_screen.dart';
+import '../features/settings/settings_screen.dart';
 
 /// App router with an auth gate: unauthenticated users go to /login.
 final routerProvider = Provider<GoRouter>((ref) {
@@ -62,6 +65,9 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/meals/:id/payment-requests',
         builder: (context, state) => PaymentRequestsScreen(mealId: state.pathParameters['id']!),
       ),
+      GoRoute(path: '/settings', builder: (context, state) => const SettingsScreen()),
+      GoRoute(path: '/settings/profile', builder: (context, state) => const ProfileScreen()),
+      GoRoute(path: '/settings/payment-methods', builder: (context, state) => const PaymentDefaultsScreen()),
     ],
   );
 
