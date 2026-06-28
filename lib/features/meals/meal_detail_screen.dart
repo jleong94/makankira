@@ -124,7 +124,11 @@ class MealDetailScreen extends ConsumerWidget {
                 label: l.sectionBill,
                 onTap: () => context.push('/meals/$mealId/bill'),
               ),
-              _SectionTile(icon: Icons.payments, label: l.sectionPaymentRequests),
+              _SectionTile(
+                icon: Icons.payments,
+                label: l.sectionPaymentRequests,
+                onTap: () => context.push('/meals/$mealId/payment-requests'),
+              ),
             ],
           );
         },

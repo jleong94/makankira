@@ -122,5 +122,14 @@
   "mismatch": "Beza",
   "billMismatchWarning": "Jumlah dikira berbeza daripada bil akhir.",
   "noResults": "Tekan Kira untuk lihat jumlah setiap orang.",
-  "farewellShareLabel": "Bahagian perpisahan"
+  "farewellShareLabel": "Bahagian perpisahan",
+  "copyMessage": "Salin",
+  "copyAll": "Salin semua",
+  "openWhatsApp": "WhatsApp",
+  "markPaid": "Tanda dibayar",
+  "markPending": "Tanda belum bayar",
+  "paid": "Dibayar",
+  "pending": "Belum bayar",
+  "copied": "Disalin ke papan keratan",
+  "noPaymentRequests": "Kira dahulu untuk jana permintaan bayaran."
 }

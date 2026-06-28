@@ -380,4 +380,31 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get farewellShareLabel => 'Bahagian perpisahan';
+
+  @override
+  String get copyMessage => 'Salin';
+
+  @override
+  String get copyAll => 'Salin semua';
+
+  @override
+  String get openWhatsApp => 'WhatsApp';
+
+  @override
+  String get markPaid => 'Tanda dibayar';
+
+  @override
+  String get markPending => 'Tanda belum bayar';
+
+  @override
+  String get paid => 'Dibayar';
+
+  @override
+  String get pending => 'Belum bayar';
+
+  @override
+  String get copied => 'Disalin ke papan keratan';
+
+  @override
+  String get noPaymentRequests => 'Kira dahulu untuk jana permintaan bayaran.';
 }

@@ -122,5 +122,14 @@
   "mismatch": "差额",
   "billMismatchWarning": "计算总额与最终账单不符。",
   "noResults": "点击「计算」查看每人金额。",
-  "farewellShareLabel": "欢送分摊"
+  "farewellShareLabel": "欢送分摊",
+  "copyMessage": "复制",
+  "copyAll": "全部复制",
+  "openWhatsApp": "WhatsApp",
+  "markPaid": "标记已付",
+  "markPending": "标记未付",
+  "paid": "已付",
+  "pending": "未付",
+  "copied": "已复制到剪贴板",
+  "noPaymentRequests": "请先计算以生成付款请求。"
 }

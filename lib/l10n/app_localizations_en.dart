@@ -380,4 +380,32 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get farewellShareLabel => 'Farewell share';
+
+  @override
+  String get copyMessage => 'Copy';
+
+  @override
+  String get copyAll => 'Copy all';
+
+  @override
+  String get openWhatsApp => 'WhatsApp';
+
+  @override
+  String get markPaid => 'Mark paid';
+
+  @override
+  String get markPending => 'Mark pending';
+
+  @override
+  String get paid => 'Paid';
+
+  @override
+  String get pending => 'Pending';
+
+  @override
+  String get copied => 'Copied to clipboard';
+
+  @override
+  String get noPaymentRequests =>
+      'Calculate first to generate payment requests.';
 }

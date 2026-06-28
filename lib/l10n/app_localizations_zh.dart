@@ -376,4 +376,31 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get farewellShareLabel => '欢送分摊';
+
+  @override
+  String get copyMessage => '复制';
+
+  @override
+  String get copyAll => '全部复制';
+
+  @override
+  String get openWhatsApp => 'WhatsApp';
+
+  @override
+  String get markPaid => '标记已付';
+
+  @override
+  String get markPending => '标记未付';
+
+  @override
+  String get paid => '已付';
+
+  @override
+  String get pending => '未付';
+
+  @override
+  String get copied => '已复制到剪贴板';
+
+  @override
+  String get noPaymentRequests => '请先计算以生成付款请求。';
 }

@@ -837,6 +837,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Farewell share'**
   String get farewellShareLabel;
+
+  /// No description provided for @copyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
+  String get copyMessage;
+
+  /// No description provided for @copyAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy all'**
+  String get copyAll;
+
+  /// No description provided for @openWhatsApp.
+  ///
+  /// In en, this message translates to:
+  /// **'WhatsApp'**
+  String get openWhatsApp;
+
+  /// No description provided for @markPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark paid'**
+  String get markPaid;
+
+  /// No description provided for @markPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark pending'**
+  String get markPending;
+
+  /// No description provided for @paid.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid'**
+  String get paid;
+
+  /// No description provided for @pending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get pending;
+
+  /// No description provided for @copied.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied to clipboard'**
+  String get copied;
+
+  /// No description provided for @noPaymentRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculate first to generate payment requests.'**
+  String get noPaymentRequests;
 }
 
 class _AppLocalizationsDelegate

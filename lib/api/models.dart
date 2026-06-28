@@ -319,3 +319,36 @@ class CalcSummary {
         mismatchCents: (j['mismatchCents'] as num?)?.toInt() ?? 0,
       );
 }
+
+class PaymentRequest {
+  final String resultId;
+  final String participantName;
+  final String? mobileNumber;
+  final int totalDueCents;
+  final String message;
+  final String? whatsappUrl;
+  final String? qrImageUrl;
+  final String? paymentReference;
+
+  PaymentRequest({
+    required this.resultId,
+    required this.participantName,
+    this.mobileNumber,
+    required this.totalDueCents,
+    required this.message,
+    this.whatsappUrl,
+    this.qrImageUrl,
+    this.paymentReference,
+  });
+
+  factory PaymentRequest.fromJson(Map<String, dynamic> j) => PaymentRequest(
+        resultId: j['resultId'] as String,
+        participantName: j['participantName'] as String,
+        mobileNumber: j['mobileNumber'] as String?,
+        totalDueCents: (j['totalDueCents'] as num?)?.toInt() ?? 0,
+        message: j['message'] as String? ?? '',
+        whatsappUrl: j['whatsappUrl'] as String?,
+        qrImageUrl: j['qrImageUrl'] as String?,
+        paymentReference: j['paymentReference'] as String?,
+      );
+}

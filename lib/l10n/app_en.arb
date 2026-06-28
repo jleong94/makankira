@@ -122,5 +122,14 @@
   "mismatch": "Mismatch",
   "billMismatchWarning": "Calculated total differs from the final bill.",
   "noResults": "Run Calculate to see each person's amount.",
-  "farewellShareLabel": "Farewell share"
+  "farewellShareLabel": "Farewell share",
+  "copyMessage": "Copy",
+  "copyAll": "Copy all",
+  "openWhatsApp": "WhatsApp",
+  "markPaid": "Mark paid",
+  "markPending": "Mark pending",
+  "paid": "Paid",
+  "pending": "Pending",
+  "copied": "Copied to clipboard",
+  "noPaymentRequests": "Calculate first to generate payment requests."
 }
