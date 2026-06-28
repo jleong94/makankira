@@ -32,7 +32,7 @@ async function sendEmail(to: string, subject: string, body: string): Promise<voi
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
     await resend.emails.send({
-      from: process.env.RESEND_FROM ?? 'MakanKira <reminders@makankira.app>',
+      from: process.env.RESEND_FROM || 'MakanKira <reminders@makankira.app>',
       to,
       subject,
       text: body,

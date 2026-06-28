@@ -17,6 +17,7 @@ backend:                                   # SECRET values, server-side only
   sessionSecret: ${SESSION_SECRET}
   fileStorageToken: ${BLOB_READ_WRITE_TOKEN}
   resendApiKey: ${RESEND_API_KEY}
+  resendFrom: ${RESEND_FROM}
   vapidPublicKey: ${VAPID_PUBLIC_KEY}
   vapidPrivateKey: ${VAPID_PRIVATE_KEY}
   vapidSubject: "mailto:reminders@makankira.app"

@@ -16,6 +16,7 @@ backend:                                   # SECRET values, server-side only
   sessionSecret: ${SESSION_SECRET}
   fileStorageToken: ${BLOB_READ_WRITE_TOKEN}        # Vercel Blob token (QR/menu images)
   resendApiKey: ${RESEND_API_KEY}                   # transactional email (order reminders)
+  resendFrom: ${RESEND_FROM}                        # from-address on your verified Resend domain
   vapidPublicKey: ${VAPID_PUBLIC_KEY}               # also needed server-side by web-push
   vapidPrivateKey: ${VAPID_PRIVATE_KEY}             # Web Push private key
   vapidSubject: "mailto:reminders@makankira.app"    # Web Push contact (non-secret)

@@ -98,6 +98,7 @@ const backendEnv = {
   SESSION_SECRET: backend.sessionSecret ?? '',
   BLOB_READ_WRITE_TOKEN: backend.fileStorageToken ?? '',
   RESEND_API_KEY: backend.resendApiKey ?? '',
+  RESEND_FROM: backend.resendFrom ?? '',
   VAPID_PUBLIC_KEY: backend.vapidPublicKey ?? frontend.vapidPublicKey ?? '',
   VAPID_PRIVATE_KEY: backend.vapidPrivateKey ?? '',
   VAPID_SUBJECT: backend.vapidSubject ?? '',

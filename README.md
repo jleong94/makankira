@@ -1353,6 +1353,7 @@ backend:                                   # SECRET values, server-side only
   sessionSecret: ${SESSION_SECRET}
   fileStorageToken: ${BLOB_READ_WRITE_TOKEN}   # Vercel Blob token for QR/menu images
   resendApiKey: ${RESEND_API_KEY}              # transactional email (order reminders)
+  resendFrom: ${RESEND_FROM}                   # from-address on your verified Resend domain
   vapidPrivateKey: ${VAPID_PRIVATE_KEY}        # Web Push private key
   vapidSubject: "mailto:reminders@makankira.app"   # Web Push contact (non-secret)
   cronSecret: ${CRON_SECRET}                   # protects the reminder cron endpoint
@@ -1379,6 +1380,7 @@ backend:                                   # SECRET values, server-side only
 | `fileStorageToken` (QR/menu images) | Backend | Yes | `secrets.local` | GitHub secret to Vercel env |
 | `vapidPublicKey` | Frontend | No (public) | `secrets.local` | GitHub secret |
 | `resendApiKey` | Backend | Yes | `secrets.local` | GitHub secret to Vercel env |
+| `resendFrom` | Backend | No (not sensitive) | `secrets.local` | GitHub secret to Vercel env |
 | `vapidPrivateKey` | Backend | Yes | `secrets.local` | GitHub secret to Vercel env |
 | `cronSecret` | Backend | Yes | `secrets.local` | GitHub secret to Vercel env |
 
@@ -1464,6 +1466,7 @@ FACEBOOK_APP_SECRET
 SESSION_SECRET
 BLOB_READ_WRITE_TOKEN            # Vercel Blob storage token
 RESEND_API_KEY                   # transactional email (order reminders)
+RESEND_FROM                      # from-address on your verified Resend domain (needed for reminder email)
 VAPID_PRIVATE_KEY                # Web Push private key
 CRON_SECRET                      # protects the reminder cron endpoint
 
@@ -1503,6 +1506,7 @@ jobs:
       SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
       BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
       RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      RESEND_FROM: ${{ secrets.RESEND_FROM }}
       VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
       CRON_SECRET: ${{ secrets.CRON_SECRET }}
     steps:
@@ -2275,7 +2279,7 @@ Yields: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, `BLOB_READ_WRITE_T
 3. Create an **API key**.
 4. Choose a from-address (e.g. `reminders@your-domain`) for reminder emails.
 
-Yields: `RESEND_API_KEY` (secret). Free tier ~3,000 emails/month.
+Yields: `RESEND_API_KEY` (secret) and `RESEND_FROM` (the from-address on your verified domain — required for reminder emails to actually send; falls back to a default otherwise). Free tier ~3,000 emails/month.
 
 ### 6. Web Push VAPID keys (free)
 
@@ -2318,6 +2322,7 @@ Yields: an `APP_BASE_URL` Actions variable (non-secret). No paid plan required.
 | `TURSO_AUTH_TOKEN` | Turso | Secret | Yes | local, GitHub, Vercel |
 | `BLOB_READ_WRITE_TOKEN` | Vercel Blob | Secret | Yes | local, GitHub, Vercel |
 | `RESEND_API_KEY` | Resend | Secret | Yes | local, GitHub, Vercel |
+| `RESEND_FROM` | Resend (verified domain) | Config | Yes | local, GitHub, Vercel |
 | `VAPID_PUBLIC_KEY` | `web-push` CLI | Public | Yes | local, GitHub, Vercel |
 | `VAPID_PRIVATE_KEY` | `web-push` CLI | Secret | Yes | local, GitHub, Vercel |
 | `SESSION_SECRET` | self (`openssl`) | Secret | Yes | local, GitHub, Vercel |
