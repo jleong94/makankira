@@ -2,9 +2,9 @@ import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { rmSync } from 'node:fs';
 import type { Row } from '@libsql/client';
-import { setupTestDb } from './testdb';
-import { upsertUser } from './auth';
-import { addMethod, listMethods, userScope, mealScope } from './paymentMethods';
+import { setupTestDb } from './testdb.js';
+import { upsertUser } from './auth.js';
+import { addMethod, listMethods, userScope, mealScope } from './paymentMethods.js';
 import {
   createMeal,
   listMeals,
@@ -15,8 +15,8 @@ import {
   finalizeMeal,
   deleteMeal,
   computeRemindAt,
-} from './meals';
-import { HttpError } from './http';
+} from './meals.js';
+import { HttpError } from './http.js';
 
 let dbFile: string;
 let org: Row;

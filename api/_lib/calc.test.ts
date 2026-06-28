@@ -6,7 +6,7 @@ import {
   distributeEqually,
   type BillInput,
   type ParticipantInput,
-} from './calc';
+} from './calc.js';
 
 // Sensible defaults; individual tests override what they exercise.
 function bill(overrides: Partial<BillInput> = {}): BillInput {

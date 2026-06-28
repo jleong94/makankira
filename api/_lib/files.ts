@@ -5,10 +5,10 @@
 
 import type { Row } from '@libsql/client';
 import { put, del } from '@vercel/blob';
-import { queryOne, execute, query } from './db';
-import { newId } from './ids';
-import { env } from './env';
-import { HttpError } from './http';
+import { queryOne, execute, query } from './db.js';
+import { newId } from './ids.js';
+import { env } from './env.js';
+import { HttpError } from './http.js';
 
 const FILE_KINDS = ['duitnow_qr', 'menu_image', 'menu_excel', 'export_excel', 'export_csv', 'other'];
 const IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];

@@ -6,9 +6,9 @@
 
 import type { Row, InStatement } from '@libsql/client';
 import ExcelJS from 'exceljs';
-import { query, queryOne, batchWrite } from './db';
-import { newId } from './ids';
-import { HttpError } from './http';
+import { query, queryOne, batchWrite } from './db.js';
+import { newId } from './ids.js';
+import { HttpError } from './http.js';
 
 export interface ParsedMenuItem {
   itemCode: string | null;

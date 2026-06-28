@@ -6,8 +6,8 @@ import {
   verifySessionToken,
   buildSessionCookie,
   buildClearCookie,
-} from './auth';
-import { toUser } from './serializers';
+} from './auth.js';
+import { toUser } from './serializers.js';
 
 process.env.SESSION_SECRET = 'unit-test-secret-unit-test-secret-123456';
 process.env.APP_PROFILE = 'local';

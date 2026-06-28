@@ -9,7 +9,7 @@
 
 import { createClient } from '@libsql/client/web';
 import type { Client, InArgs, InStatement, ResultSet, Row } from '@libsql/client';
-import { env, envOptional } from './env';
+import { env, envOptional } from './env.js';
 
 let _client: Client | null = null;
 

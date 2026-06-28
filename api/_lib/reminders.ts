@@ -6,8 +6,8 @@
  */
 
 import type { Row } from '@libsql/client';
-import { query, execute } from './db';
-import { reminderText } from './i18n';
+import { query, execute } from './db.js';
+import { reminderText } from './i18n.js';
 import { Resend } from 'resend';
 import * as webpush from 'web-push';
 

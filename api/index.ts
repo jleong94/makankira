@@ -10,7 +10,7 @@
 import { buffer } from 'node:stream/consumers';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import type { Row } from '@libsql/client';
-import { withErrors, assertSameOrigin, bodyObject, requireString, sendJson, HttpError } from './_lib/http';
+import { withErrors, assertSameOrigin, bodyObject, requireString, sendJson, HttpError } from './_lib/http.js';
 import {
   verifyProvider,
   upsertUser,
@@ -19,8 +19,8 @@ import {
   clearSessionCookie,
   getSessionUser,
   requireUser,
-} from './_lib/auth';
-import { updateProfile } from './_lib/profile';
+} from './_lib/auth.js';
+import { updateProfile } from './_lib/profile.js';
 import {
   toUser,
   toMealSession,
@@ -32,7 +32,7 @@ import {
   toPaymentStatusEvent,
   toUploadedFile,
   toPushSubscription,
-} from './_lib/serializers';
+} from './_lib/serializers.js';
 import {
   createMeal,
   listMeals,
@@ -44,24 +44,24 @@ import {
   setStatus,
   requireOwnedMeal,
   getMealForOwner,
-} from './_lib/meals';
-import { listMethods, addMethod, updateMethod, deleteMethod, userScope, mealScope } from './_lib/paymentMethods';
-import { listMenuItems, addMenuItem, updateMenuItem, deleteMenuItem, setActualPrices } from './_lib/menu';
-import { importFromExcel } from './_lib/menuImport';
-import { listOrders, getOrder, createOrder, updateOrder, deleteOrder, orderSummary } from './_lib/orders';
-import { getBill, upsertBill } from './_lib/bill';
-import { runCalculation } from './_lib/calculate';
-import { listResults, overrideResult, markPaid, markPending, listEvents } from './_lib/payments';
-import { buildRequests, buildRequest } from './_lib/paymentRequests';
-import { uploadFile, getFile, deleteFile } from './_lib/files';
-import { addSubscription, removeSubscription } from './_lib/push';
-import { sendReminders } from './_lib/reminders';
+} from './_lib/meals.js';
+import { listMethods, addMethod, updateMethod, deleteMethod, userScope, mealScope } from './_lib/paymentMethods.js';
+import { listMenuItems, addMenuItem, updateMenuItem, deleteMenuItem, setActualPrices } from './_lib/menu.js';
+import { importFromExcel } from './_lib/menuImport.js';
+import { listOrders, getOrder, createOrder, updateOrder, deleteOrder, orderSummary } from './_lib/orders.js';
+import { getBill, upsertBill } from './_lib/bill.js';
+import { runCalculation } from './_lib/calculate.js';
+import { listResults, overrideResult, markPaid, markPending, listEvents } from './_lib/payments.js';
+import { buildRequests, buildRequest } from './_lib/paymentRequests.js';
+import { uploadFile, getFile, deleteFile } from './_lib/files.js';
+import { addSubscription, removeSubscription } from './_lib/push.js';
+import { sendReminders } from './_lib/reminders.js';
 import {
   buildRestaurantOrderWorkbook,
   buildPaymentCalculationWorkbook,
   buildPaymentRequestsCsv,
   buildMenuTemplateWorkbook,
-} from './_lib/exports';
+} from './_lib/exports.js';
 
 type Params = Record<string, string>;
 type Handler = (req: VercelRequest, res: VercelResponse, p: Params) => Promise<void>;

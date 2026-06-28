@@ -5,10 +5,10 @@
  */
 
 import type { Row, InStatement } from '@libsql/client';
-import { query, queryOne, batchWrite } from './db';
-import { newId } from './ids';
-import { HttpError } from './http';
-import { normalizeMobile, requirePositiveInt } from './validate';
+import { query, queryOne, batchWrite } from './db.js';
+import { newId } from './ids.js';
+import { HttpError } from './http.js';
+import { normalizeMobile, requirePositiveInt } from './validate.js';
 
 type Input = Record<string, unknown>;
 const asStr = (v: unknown): string | null => (typeof v === 'string' && v.length > 0 ? v : null);

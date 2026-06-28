@@ -5,10 +5,10 @@
  */
 
 import type { Row } from '@libsql/client';
-import { queryOne, execute } from './db';
-import { newId } from './ids';
-import { HttpError } from './http';
-import { optionalIntCents } from './validate';
+import { queryOne, execute } from './db.js';
+import { newId } from './ids.js';
+import { HttpError } from './http.js';
+import { optionalIntCents } from './validate.js';
 
 type Input = Record<string, unknown>;
 

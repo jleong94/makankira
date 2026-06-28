@@ -6,10 +6,10 @@
  */
 
 import type { Row } from '@libsql/client';
-import { query, queryOne } from './db';
-import { HttpError } from './http';
-import { formatRM } from './money';
-import { paymentLabels, type PaymentLabels } from './i18n';
+import { query, queryOne } from './db.js';
+import { HttpError } from './http.js';
+import { formatRM } from './money.js';
+import { paymentLabels, type PaymentLabels } from './i18n.js';
 
 export interface PaymentRequest {
   resultId: string;

@@ -2,9 +2,9 @@ import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { rmSync } from 'node:fs';
 import type { Row } from '@libsql/client';
-import { setupTestDb } from './testdb';
-import { upsertUser } from './auth';
-import { addSubscription, listSubscriptions, removeSubscription } from './push';
+import { setupTestDb } from './testdb.js';
+import { upsertUser } from './auth.js';
+import { addSubscription, listSubscriptions, removeSubscription } from './push.js';
 
 let dbFile: string;
 let user: Row;

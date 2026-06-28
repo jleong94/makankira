@@ -2,11 +2,11 @@ import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { rmSync } from 'node:fs';
 import type { Row } from '@libsql/client';
-import { setupTestDb } from './testdb';
-import { execute } from './db';
-import { upsertUser } from './auth';
-import { createMeal } from './meals';
-import { findDueSessions } from './reminders';
+import { setupTestDb } from './testdb.js';
+import { execute } from './db.js';
+import { upsertUser } from './auth.js';
+import { createMeal } from './meals.js';
+import { findDueSessions } from './reminders.js';
 
 let dbFile: string;
 let org: Row;

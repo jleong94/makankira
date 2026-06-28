@@ -4,10 +4,10 @@
  */
 
 import type { Row } from '@libsql/client';
-import { query, queryOne, execute } from './db';
-import { newId } from './ids';
-import { HttpError } from './http';
-import { requireIntCents } from './validate';
+import { query, queryOne, execute } from './db.js';
+import { newId } from './ids.js';
+import { HttpError } from './http.js';
+import { requireIntCents } from './validate.js';
 
 export async function listResults(mealId: string): Promise<Row[]> {
   return query('SELECT * FROM payment_results WHERE meal_session_id = ? ORDER BY created_at', [mealId]);

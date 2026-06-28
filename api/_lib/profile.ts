@@ -1,7 +1,7 @@
 import type { Row } from '@libsql/client';
-import { queryOne } from './db';
-import { HttpError } from './http';
-import { isSupportedLocale, normalizeMobile } from './validate';
+import { queryOne } from './db.js';
+import { HttpError } from './http.js';
+import { isSupportedLocale, normalizeMobile } from './validate.js';
 
 /** Update the user's profile (Screens 2A, 2D). Returns the updated row. */
 export async function updateProfile(userId: string, body: Record<string, unknown>): Promise<Row> {

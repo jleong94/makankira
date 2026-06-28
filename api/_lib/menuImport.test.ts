@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
-import { parseMenuWorkbook } from './menuImport';
+import { parseMenuWorkbook } from './menuImport.js';
 
 test('parseMenuWorkbook maps headers, converts price to sen, skips nameless rows', async () => {
   const wb = new ExcelJS.Workbook();

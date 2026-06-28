@@ -7,9 +7,9 @@
  */
 
 import type { Row, InStatement } from '@libsql/client';
-import { query, queryOne, batchWrite } from './db';
-import { newId } from './ids';
-import { HttpError } from './http';
+import { query, queryOne, batchWrite } from './db.js';
+import { newId } from './ids.js';
+import { HttpError } from './http.js';
 import {
   calculate,
   type ParticipantInput,
@@ -20,7 +20,7 @@ import {
   type DiscountAlloc,
   type ClaimAlloc,
   type FarewellAlloc,
-} from './calc';
+} from './calc.js';
 
 function billInputFrom(billRow: Row | null): BillInput {
   const claim: CompanyClaim = {
