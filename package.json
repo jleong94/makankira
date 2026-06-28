@@ -11,6 +11,7 @@
     "config": "node scripts/load-config.mjs",
     "migrate": "tsx scripts/migrate.ts",
     "typecheck": "tsc --noEmit",
+    "test": "tsx --test \"api/_lib/**/*.test.ts\"",
     "dev": "vercel dev",
     "build:web": "flutter build web --release --dart-define-from-file=config/frontend.local.json"
   },
