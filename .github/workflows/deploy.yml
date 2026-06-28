@@ -26,11 +26,11 @@ jobs:
       # --- secret (backend / runtime) values ---
       TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
       TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
-      GOOGLE_OAUTH_CLIENT_SECRET: ${{ secrets.GOOGLE_OAUTH_CLIENT_SECRET }}
       FACEBOOK_APP_SECRET: ${{ secrets.FACEBOOK_APP_SECRET }}
       SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
       BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
       RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      RESEND_FROM: ${{ secrets.RESEND_FROM }}
       VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
       CRON_SECRET: ${{ secrets.CRON_SECRET }}
       # --- Vercel deploy credentials (GitHub-only) ---
