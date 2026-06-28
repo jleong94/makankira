@@ -37,16 +37,30 @@ const TRANSITIONS: Record<MealStatus, MealStatus[]> = {
 type Input = Record<string, unknown>;
 const asStr = (v: unknown): string | null => (typeof v === 'string' && v.length > 0 ? v : null);
 
-/** remind_at = meal_date_time minus the lead, in UTC; null when off or no time. */
-export function computeRemindAt(
-  mealDateTime: string | null,
-  leadMinutes: number,
+/**
+ * Validate + normalise a user-supplied reminder time to UTC ISO. Returns null
+ * when reminders are off or no time is given. A reminder may not be in the past
+ * and must be earlier than the meal date/time (when one is set).
+ */
+export function normalizeRemindAt(
+  remindAt: unknown,
   enabled: boolean,
+  mealDateTime: string | null,
+  nowMs: number,
 ): string | null {
-  if (!enabled || !mealDateTime) return null;
-  const t = new Date(mealDateTime).getTime();
-  if (Number.isNaN(t)) return null;
-  return new Date(t - leadMinutes * 60_000).toISOString().replace(/\.\d{3}Z$/, 'Z');
+  if (!enabled) return null;
+  const s = asStr(remindAt);
+  if (!s) return null;
+  const t = new Date(s).getTime();
+  if (Number.isNaN(t)) throw new HttpError(400, 'invalid_request', 'Invalid reminder date/time');
+  if (t < nowMs) throw new HttpError(400, 'reminder_in_past', 'Reminder date & time must be in the future');
+  if (mealDateTime) {
+    const meal = new Date(mealDateTime).getTime();
+    if (!Number.isNaN(meal) && t >= meal) {
+      throw new HttpError(400, 'reminder_after_meal', 'Reminder must be earlier than the meal date & time');
+    }
+  }
+  return new Date(t).toISOString().replace(/\.\d{3}Z$/, 'Z');
 }
 
 function mealTypeOrNull(v: unknown): string | null {
@@ -118,19 +132,17 @@ export async function createMeal(user: Row, input: Input): Promise<Row> {
   const occasionType = farewellEnabled ? 'farewell' : 'normal';
   const mealDateTime = asStr(input.mealDateTime);
   const reminderEnabled = input.reminderEnabled !== false; // default on
-  const reminderLeadMinutes =
-    typeof input.reminderLeadMinutes === 'number' && input.reminderLeadMinutes >= 0
-      ? input.reminderLeadMinutes
-      : 120;
-  const remindAt = computeRemindAt(mealDateTime, reminderLeadMinutes, reminderEnabled);
+  const remindAt = normalizeRemindAt(input.remindAt, reminderEnabled, mealDateTime, Date.now());
 
   const id = newId('meal');
   const insertMeal: InStatement = {
+    // reminder_lead_minutes is left to its column DEFAULT (the reminder time is
+    // now an absolute remind_at, set directly by the organizer).
     sql: `INSERT INTO meal_sessions
       (id, owner_user_id, title, meal_type, occasion_type, farewell_enabled, restaurant_name,
        menu_url, meal_date_time, seat_details, organizer_name, organizer_contact, status,
-       reminder_enabled, reminder_lead_minutes, remind_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'draft', ?, ?, ?)`,
+       reminder_enabled, remind_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'draft', ?, ?)`,
     args: [
       id,
       String(user.id),
@@ -145,7 +157,6 @@ export async function createMeal(user: Row, input: Input): Promise<Row> {
       asStr(input.organizerName) ?? (user.display_name as string | null),
       asStr(input.organizerContact) ?? (user.mobile_number as string | null),
       reminderEnabled ? 1 : 0,
-      reminderLeadMinutes,
       remindAt,
     ],
   };
@@ -186,21 +197,22 @@ export async function updateMeal(userId: string, mealId: string, input: Input): 
   if ('organizerName' in input) set('organizer_name', asStr(input.organizerName));
   if ('organizerContact' in input) set('organizer_contact', asStr(input.organizerContact));
 
-  // Recompute remind_at from the resulting values if any input affects it.
-  const affectsReminder =
-    'mealDateTime' in input || 'reminderEnabled' in input || 'reminderLeadMinutes' in input;
+  // The organizer sets an absolute remind_at directly (validated future +
+  // earlier than the meal). meal_date_time is independent, but a newly supplied
+  // remind_at is re-validated against the resulting meal time.
   const mealDateTime = 'mealDateTime' in input ? asStr(input.mealDateTime) : (meal.meal_date_time as string | null);
   const reminderEnabled =
     'reminderEnabled' in input ? input.reminderEnabled !== false : Number(meal.reminder_enabled) === 1;
-  const reminderLeadMinutes =
-    'reminderLeadMinutes' in input && typeof input.reminderLeadMinutes === 'number' && input.reminderLeadMinutes >= 0
-      ? input.reminderLeadMinutes
-      : Number(meal.reminder_lead_minutes);
   if ('mealDateTime' in input) set('meal_date_time', mealDateTime);
   if ('reminderEnabled' in input) set('reminder_enabled', reminderEnabled ? 1 : 0);
-  if ('reminderLeadMinutes' in input) set('reminder_lead_minutes', reminderLeadMinutes);
-  if (affectsReminder) {
-    set('remind_at', computeRemindAt(mealDateTime, reminderLeadMinutes, reminderEnabled));
+
+  if ('reminderEnabled' in input || 'remindAt' in input) {
+    const remindAt = 'remindAt' in input
+      ? normalizeRemindAt(input.remindAt, reminderEnabled, mealDateTime, Date.now())
+      : reminderEnabled
+        ? (meal.remind_at as string | null) // re-enabled: keep the existing time
+        : null; // disabled: clear it
+    set('remind_at', remindAt);
     set('reminder_sent_at', null); // reschedule: allow the reminder to fire again
   }
 

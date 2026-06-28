@@ -430,11 +430,29 @@ abstract class AppLocalizations {
   /// **'Order reminder'**
   String get orderReminder;
 
-  /// No description provided for @reminderLead.
+  /// No description provided for @reminderTime.
   ///
   /// In en, this message translates to:
-  /// **'Remind (minutes before)'**
-  String get reminderLead;
+  /// **'Remind at'**
+  String get reminderTime;
+
+  /// No description provided for @reminderTimeRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please set a reminder date & time'**
+  String get reminderTimeRequired;
+
+  /// No description provided for @reminderBeforeMeal.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder must be earlier than the meal time'**
+  String get reminderBeforeMeal;
+
+  /// No description provided for @reminderTimePast.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a future date & time'**
+  String get reminderTimePast;
 
   /// No description provided for @mealCreated.
   ///
