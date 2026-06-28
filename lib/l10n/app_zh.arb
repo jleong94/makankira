@@ -69,5 +69,17 @@
   "sectionReview": "核对点餐",
   "sectionBill": "账单与付款",
   "sectionPaymentRequests": "付款请求",
-  "notSet": "未设置"
+  "notSet": "未设置",
+  "menuManager": "菜单",
+  "addItem": "添加项目",
+  "editItem": "编辑项目",
+  "itemName": "名称",
+  "itemCategory": "类别",
+  "itemDescription": "描述",
+  "estimatedPrice": "预估价格（RM）",
+  "actualPrice": "实际价格（RM）",
+  "available": "可选",
+  "noMenuItems": "还没有项目，添加第一个。",
+  "deleteItemConfirm": "删除此项目？",
+  "saved": "已保存"
 }

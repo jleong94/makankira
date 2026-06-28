@@ -219,4 +219,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notSet => 'Not set';
+
+  @override
+  String get menuManager => 'Menu';
+
+  @override
+  String get addItem => 'Add item';
+
+  @override
+  String get editItem => 'Edit item';
+
+  @override
+  String get itemName => 'Item name';
+
+  @override
+  String get itemCategory => 'Category';
+
+  @override
+  String get itemDescription => 'Description';
+
+  @override
+  String get estimatedPrice => 'Estimated price (RM)';
+
+  @override
+  String get actualPrice => 'Actual price (RM)';
+
+  @override
+  String get available => 'Available';
+
+  @override
+  String get noMenuItems => 'No items yet. Add the first one.';
+
+  @override
+  String get deleteItemConfirm => 'Delete this item?';
+
+  @override
+  String get saved => 'Saved';
 }

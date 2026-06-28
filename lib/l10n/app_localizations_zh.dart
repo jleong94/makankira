@@ -217,4 +217,40 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get notSet => '未设置';
+
+  @override
+  String get menuManager => '菜单';
+
+  @override
+  String get addItem => '添加项目';
+
+  @override
+  String get editItem => '编辑项目';
+
+  @override
+  String get itemName => '名称';
+
+  @override
+  String get itemCategory => '类别';
+
+  @override
+  String get itemDescription => '描述';
+
+  @override
+  String get estimatedPrice => '预估价格（RM）';
+
+  @override
+  String get actualPrice => '实际价格（RM）';
+
+  @override
+  String get available => '可选';
+
+  @override
+  String get noMenuItems => '还没有项目，添加第一个。';
+
+  @override
+  String get deleteItemConfirm => '删除此项目？';
+
+  @override
+  String get saved => '已保存';
 }

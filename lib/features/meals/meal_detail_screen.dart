@@ -104,7 +104,11 @@ class MealDetailScreen extends ConsumerWidget {
                       title: Text(_methodLine(pm)),
                     )),
               const SizedBox(height: 16),
-              _SectionTile(icon: Icons.restaurant_menu, label: l.sectionMenu),
+              _SectionTile(
+                icon: Icons.restaurant_menu,
+                label: l.sectionMenu,
+                onTap: () => context.push('/meals/$mealId/menu'),
+              ),
               _SectionTile(icon: Icons.receipt_long, label: l.sectionOrders),
               _SectionTile(icon: Icons.checklist, label: l.sectionReview),
               _SectionTile(icon: Icons.calculate, label: l.sectionBill),
@@ -129,9 +133,10 @@ class MealDetailScreen extends ConsumerWidget {
 }
 
 class _SectionTile extends StatelessWidget {
-  const _SectionTile({required this.icon, required this.label});
+  const _SectionTile({required this.icon, required this.label, this.onTap});
   final IconData icon;
   final String label;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +146,7 @@ class _SectionTile extends StatelessWidget {
         leading: Icon(icon),
         title: Text(label),
         trailing: const Icon(Icons.chevron_right),
-        onTap: () => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l.comingSoon))),
+        onTap: onTap ?? () => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l.comingSoon))),
       ),
     );
   }

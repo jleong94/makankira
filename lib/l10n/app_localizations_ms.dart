@@ -220,4 +220,40 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get notSet => 'Tidak ditetapkan';
+
+  @override
+  String get menuManager => 'Menu';
+
+  @override
+  String get addItem => 'Tambah item';
+
+  @override
+  String get editItem => 'Sunting item';
+
+  @override
+  String get itemName => 'Nama item';
+
+  @override
+  String get itemCategory => 'Kategori';
+
+  @override
+  String get itemDescription => 'Penerangan';
+
+  @override
+  String get estimatedPrice => 'Anggaran harga (RM)';
+
+  @override
+  String get actualPrice => 'Harga sebenar (RM)';
+
+  @override
+  String get available => 'Ada';
+
+  @override
+  String get noMenuItems => 'Belum ada item. Tambah yang pertama.';
+
+  @override
+  String get deleteItemConfirm => 'Padam item ini?';
+
+  @override
+  String get saved => 'Disimpan';
 }

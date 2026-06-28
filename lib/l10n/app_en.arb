@@ -69,5 +69,17 @@
   "sectionReview": "Review order",
   "sectionBill": "Bill & payment",
   "sectionPaymentRequests": "Payment requests",
-  "notSet": "Not set"
+  "notSet": "Not set",
+  "menuManager": "Menu",
+  "addItem": "Add item",
+  "editItem": "Edit item",
+  "itemName": "Item name",
+  "itemCategory": "Category",
+  "itemDescription": "Description",
+  "estimatedPrice": "Estimated price (RM)",
+  "actualPrice": "Actual price (RM)",
+  "available": "Available",
+  "noMenuItems": "No items yet. Add the first one.",
+  "deleteItemConfirm": "Delete this item?",
+  "saved": "Saved"
 }

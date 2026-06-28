@@ -519,6 +519,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not set'**
   String get notSet;
+
+  /// No description provided for @menuManager.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu'**
+  String get menuManager;
+
+  /// No description provided for @addItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Add item'**
+  String get addItem;
+
+  /// No description provided for @editItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit item'**
+  String get editItem;
+
+  /// No description provided for @itemName.
+  ///
+  /// In en, this message translates to:
+  /// **'Item name'**
+  String get itemName;
+
+  /// No description provided for @itemCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get itemCategory;
+
+  /// No description provided for @itemDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get itemDescription;
+
+  /// No description provided for @estimatedPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated price (RM)'**
+  String get estimatedPrice;
+
+  /// No description provided for @actualPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Actual price (RM)'**
+  String get actualPrice;
+
+  /// No description provided for @available.
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
+  String get available;
+
+  /// No description provided for @noMenuItems.
+  ///
+  /// In en, this message translates to:
+  /// **'No items yet. Add the first one.'**
+  String get noMenuItems;
+
+  /// No description provided for @deleteItemConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this item?'**
+  String get deleteItemConfirm;
+
+  /// No description provided for @saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get saved;
 }
 
 class _AppLocalizationsDelegate

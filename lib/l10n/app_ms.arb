@@ -69,5 +69,17 @@
   "sectionReview": "Semak pesanan",
   "sectionBill": "Bil & bayaran",
   "sectionPaymentRequests": "Permintaan bayaran",
-  "notSet": "Tidak ditetapkan"
+  "notSet": "Tidak ditetapkan",
+  "menuManager": "Menu",
+  "addItem": "Tambah item",
+  "editItem": "Sunting item",
+  "itemName": "Nama item",
+  "itemCategory": "Kategori",
+  "itemDescription": "Penerangan",
+  "estimatedPrice": "Anggaran harga (RM)",
+  "actualPrice": "Harga sebenar (RM)",
+  "available": "Ada",
+  "noMenuItems": "Belum ada item. Tambah yang pertama.",
+  "deleteItemConfirm": "Padam item ini?",
+  "saved": "Disimpan"
 }

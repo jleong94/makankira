@@ -7,6 +7,7 @@ import '../features/auth/login_screen.dart';
 import '../features/meals/dashboard_screen.dart';
 import '../features/meals/meal_detail_screen.dart';
 import '../features/meals/meal_setup_screen.dart';
+import '../features/menu/menu_screen.dart';
 
 /// App router with an auth gate: unauthenticated users go to /login.
 final routerProvider = Provider<GoRouter>((ref) {
@@ -36,6 +37,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/meals/:id',
         builder: (context, state) => MealDetailScreen(mealId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/meals/:id/menu',
+        builder: (context, state) => MenuScreen(mealId: state.pathParameters['id']!),
       ),
     ],
   );

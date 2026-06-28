@@ -122,3 +122,36 @@ class PaymentMethod {
         isDefault: j['isDefault'] as bool? ?? false,
       );
 }
+
+class MenuItem {
+  final String id;
+  final String? itemCode;
+  final String name;
+  final String? category;
+  final String? description;
+  final int? estimatedPriceCents;
+  final int? actualPriceCents;
+  final bool available;
+
+  MenuItem({
+    required this.id,
+    this.itemCode,
+    required this.name,
+    this.category,
+    this.description,
+    this.estimatedPriceCents,
+    this.actualPriceCents,
+    this.available = true,
+  });
+
+  factory MenuItem.fromJson(Map<String, dynamic> j) => MenuItem(
+        id: j['id'] as String,
+        itemCode: j['itemCode'] as String?,
+        name: j['name'] as String,
+        category: j['category'] as String?,
+        description: j['description'] as String?,
+        estimatedPriceCents: (j['estimatedPriceCents'] as num?)?.toInt(),
+        actualPriceCents: (j['actualPriceCents'] as num?)?.toInt(),
+        available: j['available'] as bool? ?? true,
+      );
+}
