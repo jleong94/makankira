@@ -27,6 +27,13 @@ class AuthController extends AsyncNotifier<AppUser?> {
     state = const AsyncData(null);
   }
 
+  /// Drop the session locally (no network call). Called when the server reports
+  /// the session is no longer valid (HTTP 401), so the auth gate shows the
+  /// login page; the user is returned to their page after signing in again.
+  void markSignedOut() {
+    state = const AsyncData(null);
+  }
+
   /// Update the signed-in user's profile (displayName, mobileNumber, preferredLanguage).
   Future<void> updateProfile(Map<String, dynamic> body) async {
     final data = await ref.read(apiClientProvider).patchJson('/me', body: body);

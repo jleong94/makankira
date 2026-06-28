@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'client_factory_io.dart' if (dart.library.html) 'client_factory_web.dart';
+import '../features/auth/auth_controller.dart';
 import 'models.dart';
 
 /// API base URL is compiled in via --dart-define-from-file (config/frontend.*.json):
@@ -10,8 +11,12 @@ import 'models.dart';
 const _apiBaseUrl = String.fromEnvironment('API_BASE_URL', defaultValue: '/api');
 
 class ApiClient {
-  ApiClient([http.Client? client]) : _client = client ?? createHttpClient();
+  ApiClient({http.Client? client, this.onUnauthorized}) : _client = client ?? createHttpClient();
   final http.Client _client;
+
+  /// Invoked when any request returns HTTP 401, so the session can be dropped
+  /// and the auth gate can send the user back to sign in.
+  final void Function()? onUnauthorized;
 
   Uri _uri(String path, Map<String, String>? query) {
     final base = _apiBaseUrl.endsWith('/') ? _apiBaseUrl.substring(0, _apiBaseUrl.length - 1) : _apiBaseUrl;
@@ -42,6 +47,7 @@ class ApiClient {
 
     final dynamic data = res.body.isEmpty ? null : jsonDecode(res.body);
     if (res.statusCode >= 400) {
+      if (res.statusCode == 401) onUnauthorized?.call();
       final err = (data is Map && data['error'] is Map) ? data['error'] as Map : const {};
       throw ApiException(
         res.statusCode,
@@ -77,6 +83,7 @@ class ApiClient {
     final res = await _client.post(_uri(path, query), headers: {'content-type': contentType}, body: bytes);
     final dynamic data = res.body.isEmpty ? null : jsonDecode(res.body);
     if (res.statusCode >= 400) {
+      if (res.statusCode == 401) onUnauthorized?.call();
       final err = (data is Map && data['error'] is Map) ? data['error'] as Map : const {};
       throw ApiException(
         res.statusCode,
@@ -88,4 +95,6 @@ class ApiClient {
   }
 }
 
-final apiClientProvider = Provider<ApiClient>((ref) => ApiClient());
+final apiClientProvider = Provider<ApiClient>(
+  (ref) => ApiClient(onUnauthorized: () => ref.read(authProvider.notifier).markSignedOut()),
+);
