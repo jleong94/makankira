@@ -70,7 +70,16 @@ class AppLocalizationsMs extends AppLocalizations {
   String get add => 'Tambah';
 
   @override
+  String get create => 'Cipta';
+
+  @override
   String get search => 'Cari';
+
+  @override
+  String get required => 'Wajib';
+
+  @override
+  String get comingSoon => 'Akan datang';
 
   @override
   String get mealSessions => 'Sesi Makan';
@@ -113,4 +122,102 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get statusClosed => 'Ditutup';
+
+  @override
+  String get mealSetup => 'Tetapan majlis';
+
+  @override
+  String get mealTitle => 'Tajuk majlis';
+
+  @override
+  String get mealType => 'Jenis makan';
+
+  @override
+  String get mealTypeBreakfast => 'Sarapan';
+
+  @override
+  String get mealTypeLunch => 'Makan tengah hari';
+
+  @override
+  String get mealTypeDinner => 'Makan malam';
+
+  @override
+  String get mealTypeSupper => 'Supper';
+
+  @override
+  String get mealTypeCustom => 'Tersuai';
+
+  @override
+  String get restaurantName => 'Nama restoran';
+
+  @override
+  String get menuUrl => 'URL menu';
+
+  @override
+  String get mealDateTime => 'Tarikh & masa';
+
+  @override
+  String get seatDetails => 'Tempat duduk / meja';
+
+  @override
+  String get organizerName => 'Nama penganjur';
+
+  @override
+  String get organizerContact => 'Hubungan penganjur';
+
+  @override
+  String get farewellMeal => 'Majlis perpisahan';
+
+  @override
+  String get farewellMealHint =>
+      'Tetamu kehormat menyertai dan memesan tetapi tidak membayar.';
+
+  @override
+  String get orderReminder => 'Peringatan pesanan';
+
+  @override
+  String get reminderLead => 'Ingatkan (minit sebelum)';
+
+  @override
+  String get mealCreated => 'Majlis dicipta';
+
+  @override
+  String get mealDeleted => 'Majlis dipadam';
+
+  @override
+  String get deleteMealConfirm =>
+      'Padam sesi makan ini? Tindakan ini tidak boleh dibatalkan.';
+
+  @override
+  String get restaurant => 'Restoran';
+
+  @override
+  String get seat => 'Tempat duduk';
+
+  @override
+  String get statusLabel => 'Status';
+
+  @override
+  String get paymentMethods => 'Kaedah bayaran';
+
+  @override
+  String get noPaymentMethods => 'Belum ada kaedah penerimaan.';
+
+  @override
+  String get sectionMenu => 'Menu';
+
+  @override
+  String get sectionOrders => 'Pesanan';
+
+  @override
+  String get sectionReview => 'Semak pesanan';
+
+  @override
+  String get sectionBill => 'Bil & bayaran';
+
+  @override
+  String get sectionPaymentRequests => 'Permintaan bayaran';
+
+  @override
+  String get notSet => 'Tidak ditetapkan';
 }

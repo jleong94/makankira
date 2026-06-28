@@ -69,7 +69,16 @@ class AppLocalizationsZh extends AppLocalizations {
   String get add => '添加';
 
   @override
+  String get create => '创建';
+
+  @override
   String get search => '搜索';
+
+  @override
+  String get required => '必填';
+
+  @override
+  String get comingSoon => '敬请期待';
 
   @override
   String get mealSessions => '聚餐';
@@ -112,4 +121,100 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get statusClosed => '已关闭';
+
+  @override
+  String get mealSetup => '聚餐设置';
+
+  @override
+  String get mealTitle => '聚餐名称';
+
+  @override
+  String get mealType => '餐别';
+
+  @override
+  String get mealTypeBreakfast => '早餐';
+
+  @override
+  String get mealTypeLunch => '午餐';
+
+  @override
+  String get mealTypeDinner => '晚餐';
+
+  @override
+  String get mealTypeSupper => '宵夜';
+
+  @override
+  String get mealTypeCustom => '自定义';
+
+  @override
+  String get restaurantName => '餐厅名称';
+
+  @override
+  String get menuUrl => '菜单链接';
+
+  @override
+  String get mealDateTime => '日期与时间';
+
+  @override
+  String get seatDetails => '座位 / 桌号';
+
+  @override
+  String get organizerName => '组织者姓名';
+
+  @override
+  String get organizerContact => '组织者联系方式';
+
+  @override
+  String get farewellMeal => '欢送会';
+
+  @override
+  String get farewellMealHint => '欢送对象参加点餐但无需付款。';
+
+  @override
+  String get orderReminder => '点餐提醒';
+
+  @override
+  String get reminderLead => '提前提醒（分钟）';
+
+  @override
+  String get mealCreated => '聚餐已创建';
+
+  @override
+  String get mealDeleted => '聚餐已删除';
+
+  @override
+  String get deleteMealConfirm => '删除此聚餐？此操作无法撤销。';
+
+  @override
+  String get restaurant => '餐厅';
+
+  @override
+  String get seat => '座位';
+
+  @override
+  String get statusLabel => '状态';
+
+  @override
+  String get paymentMethods => '收款方式';
+
+  @override
+  String get noPaymentMethods => '尚未设置收款方式。';
+
+  @override
+  String get sectionMenu => '菜单';
+
+  @override
+  String get sectionOrders => '点餐';
+
+  @override
+  String get sectionReview => '核对点餐';
+
+  @override
+  String get sectionBill => '账单与付款';
+
+  @override
+  String get sectionPaymentRequests => '付款请求';
+
+  @override
+  String get notSet => '未设置';
 }

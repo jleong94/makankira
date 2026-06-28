@@ -70,7 +70,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get add => 'Add';
 
   @override
+  String get create => 'Create';
+
+  @override
   String get search => 'Search';
+
+  @override
+  String get required => 'Required';
+
+  @override
+  String get comingSoon => 'Coming soon';
 
   @override
   String get mealSessions => 'Meal Sessions';
@@ -113,4 +122,101 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get statusClosed => 'Closed';
+
+  @override
+  String get mealSetup => 'Meal setup';
+
+  @override
+  String get mealTitle => 'Meal title';
+
+  @override
+  String get mealType => 'Meal type';
+
+  @override
+  String get mealTypeBreakfast => 'Breakfast';
+
+  @override
+  String get mealTypeLunch => 'Lunch';
+
+  @override
+  String get mealTypeDinner => 'Dinner';
+
+  @override
+  String get mealTypeSupper => 'Supper';
+
+  @override
+  String get mealTypeCustom => 'Custom';
+
+  @override
+  String get restaurantName => 'Restaurant name';
+
+  @override
+  String get menuUrl => 'Menu URL';
+
+  @override
+  String get mealDateTime => 'Date & time';
+
+  @override
+  String get seatDetails => 'Seat / table details';
+
+  @override
+  String get organizerName => 'Organizer name';
+
+  @override
+  String get organizerContact => 'Organizer contact';
+
+  @override
+  String get farewellMeal => 'Farewell meal';
+
+  @override
+  String get farewellMealHint => 'Honorees join and order but don\'t pay.';
+
+  @override
+  String get orderReminder => 'Order reminder';
+
+  @override
+  String get reminderLead => 'Remind (minutes before)';
+
+  @override
+  String get mealCreated => 'Meal created';
+
+  @override
+  String get mealDeleted => 'Meal deleted';
+
+  @override
+  String get deleteMealConfirm =>
+      'Delete this meal session? This cannot be undone.';
+
+  @override
+  String get restaurant => 'Restaurant';
+
+  @override
+  String get seat => 'Seat';
+
+  @override
+  String get statusLabel => 'Status';
+
+  @override
+  String get paymentMethods => 'Payment methods';
+
+  @override
+  String get noPaymentMethods => 'No receiving methods yet.';
+
+  @override
+  String get sectionMenu => 'Menu';
+
+  @override
+  String get sectionOrders => 'Orders';
+
+  @override
+  String get sectionReview => 'Review order';
+
+  @override
+  String get sectionBill => 'Bill & payment';
+
+  @override
+  String get sectionPaymentRequests => 'Payment requests';
+
+  @override
+  String get notSet => 'Not set';
 }

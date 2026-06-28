@@ -220,11 +220,29 @@ abstract class AppLocalizations {
   /// **'Add'**
   String get add;
 
+  /// No description provided for @create.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get create;
+
   /// No description provided for @search.
   ///
   /// In en, this message translates to:
   /// **'Search'**
   String get search;
+
+  /// No description provided for @required.
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get required;
+
+  /// No description provided for @comingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon'**
+  String get comingSoon;
 
   /// No description provided for @mealSessions.
   ///
@@ -309,6 +327,198 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Closed'**
   String get statusClosed;
+
+  /// No description provided for @mealSetup.
+  ///
+  /// In en, this message translates to:
+  /// **'Meal setup'**
+  String get mealSetup;
+
+  /// No description provided for @mealTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Meal title'**
+  String get mealTitle;
+
+  /// No description provided for @mealType.
+  ///
+  /// In en, this message translates to:
+  /// **'Meal type'**
+  String get mealType;
+
+  /// No description provided for @mealTypeBreakfast.
+  ///
+  /// In en, this message translates to:
+  /// **'Breakfast'**
+  String get mealTypeBreakfast;
+
+  /// No description provided for @mealTypeLunch.
+  ///
+  /// In en, this message translates to:
+  /// **'Lunch'**
+  String get mealTypeLunch;
+
+  /// No description provided for @mealTypeDinner.
+  ///
+  /// In en, this message translates to:
+  /// **'Dinner'**
+  String get mealTypeDinner;
+
+  /// No description provided for @mealTypeSupper.
+  ///
+  /// In en, this message translates to:
+  /// **'Supper'**
+  String get mealTypeSupper;
+
+  /// No description provided for @mealTypeCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
+  String get mealTypeCustom;
+
+  /// No description provided for @restaurantName.
+  ///
+  /// In en, this message translates to:
+  /// **'Restaurant name'**
+  String get restaurantName;
+
+  /// No description provided for @menuUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu URL'**
+  String get menuUrl;
+
+  /// No description provided for @mealDateTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Date & time'**
+  String get mealDateTime;
+
+  /// No description provided for @seatDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Seat / table details'**
+  String get seatDetails;
+
+  /// No description provided for @organizerName.
+  ///
+  /// In en, this message translates to:
+  /// **'Organizer name'**
+  String get organizerName;
+
+  /// No description provided for @organizerContact.
+  ///
+  /// In en, this message translates to:
+  /// **'Organizer contact'**
+  String get organizerContact;
+
+  /// No description provided for @farewellMeal.
+  ///
+  /// In en, this message translates to:
+  /// **'Farewell meal'**
+  String get farewellMeal;
+
+  /// No description provided for @farewellMealHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Honorees join and order but don\'t pay.'**
+  String get farewellMealHint;
+
+  /// No description provided for @orderReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Order reminder'**
+  String get orderReminder;
+
+  /// No description provided for @reminderLead.
+  ///
+  /// In en, this message translates to:
+  /// **'Remind (minutes before)'**
+  String get reminderLead;
+
+  /// No description provided for @mealCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Meal created'**
+  String get mealCreated;
+
+  /// No description provided for @mealDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Meal deleted'**
+  String get mealDeleted;
+
+  /// No description provided for @deleteMealConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this meal session? This cannot be undone.'**
+  String get deleteMealConfirm;
+
+  /// No description provided for @restaurant.
+  ///
+  /// In en, this message translates to:
+  /// **'Restaurant'**
+  String get restaurant;
+
+  /// No description provided for @seat.
+  ///
+  /// In en, this message translates to:
+  /// **'Seat'**
+  String get seat;
+
+  /// No description provided for @statusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get statusLabel;
+
+  /// No description provided for @paymentMethods.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment methods'**
+  String get paymentMethods;
+
+  /// No description provided for @noPaymentMethods.
+  ///
+  /// In en, this message translates to:
+  /// **'No receiving methods yet.'**
+  String get noPaymentMethods;
+
+  /// No description provided for @sectionMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu'**
+  String get sectionMenu;
+
+  /// No description provided for @sectionOrders.
+  ///
+  /// In en, this message translates to:
+  /// **'Orders'**
+  String get sectionOrders;
+
+  /// No description provided for @sectionReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review order'**
+  String get sectionReview;
+
+  /// No description provided for @sectionBill.
+  ///
+  /// In en, this message translates to:
+  /// **'Bill & payment'**
+  String get sectionBill;
+
+  /// No description provided for @sectionPaymentRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment requests'**
+  String get sectionPaymentRequests;
+
+  /// No description provided for @notSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Not set'**
+  String get notSet;
 }
 
 class _AppLocalizationsDelegate
