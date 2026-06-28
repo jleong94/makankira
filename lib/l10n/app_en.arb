@@ -155,5 +155,7 @@
   "webPushEnabled": "Notifications enabled on this device",
   "webPushFailed": "Couldn't enable notifications here.",
   "emailReminderNote": "Order reminders are also sent to your sign-in email on all devices.",
-  "webPushNote": "Web Push works on Android and desktop browsers (not iOS)."
+  "webPushNote": "Web Push works on Android and desktop browsers (not iOS).",
+  "exportExcel": "Export Excel",
+  "exportCsv": "Export CSV"
 }

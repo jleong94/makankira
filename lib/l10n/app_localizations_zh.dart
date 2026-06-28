@@ -475,4 +475,10 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get webPushNote => 'Web Push 适用于安卓和桌面浏览器（不支持 iOS）。';
+
+  @override
+  String get exportExcel => '导出 Excel';
+
+  @override
+  String get exportCsv => '导出 CSV';
 }

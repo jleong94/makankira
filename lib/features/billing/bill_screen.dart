@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../../api/api_client.dart';
 import '../../api/models.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/formatters.dart';
@@ -16,7 +18,19 @@ class BillScreen extends ConsumerWidget {
     final l = AppLocalizations.of(context);
     final bill = ref.watch(billProvider(mealId));
     return Scaffold(
-      appBar: AppBar(title: Text(l.sectionBill)),
+      appBar: AppBar(
+        title: Text(l.sectionBill),
+        actions: [
+          IconButton(
+            tooltip: l.exportExcel,
+            icon: const Icon(Icons.download),
+            onPressed: () => launchUrl(
+              ref.read(apiClientProvider).fileUri('/meals/$mealId/export/payment-calculation.xlsx'),
+              webOnlyWindowName: '_blank',
+            ),
+          ),
+        ],
+      ),
       body: bill.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => Center(child: Text('${l.errorTitle}: $e')),

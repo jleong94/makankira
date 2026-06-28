@@ -155,5 +155,7 @@
   "webPushEnabled": "已在此设备启用通知",
   "webPushFailed": "无法在此启用通知。",
   "emailReminderNote": "点餐提醒也会发送到您登录的电子邮件（所有设备）。",
-  "webPushNote": "Web Push 适用于安卓和桌面浏览器（不支持 iOS）。"
+  "webPushNote": "Web Push 适用于安卓和桌面浏览器（不支持 iOS）。",
+  "exportExcel": "导出 Excel",
+  "exportCsv": "导出 CSV"
 }

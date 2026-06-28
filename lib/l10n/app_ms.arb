@@ -155,5 +155,7 @@
   "webPushEnabled": "Pemberitahuan didayakan pada peranti ini",
   "webPushFailed": "Tidak dapat mendayakan pemberitahuan di sini.",
   "emailReminderNote": "Peringatan pesanan juga dihantar ke e-mel log masuk anda pada semua peranti.",
-  "webPushNote": "Web Push berfungsi pada pelayar Android dan desktop (bukan iOS)."
+  "webPushNote": "Web Push berfungsi pada pelayar Android dan desktop (bukan iOS).",
+  "exportExcel": "Eksport Excel",
+  "exportCsv": "Eksport CSV"
 }

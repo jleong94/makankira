@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../../api/api_client.dart';
 import '../../l10n/app_localizations.dart';
 import 'orders_controller.dart';
 
@@ -62,6 +64,14 @@ class _OrdersScreenState extends ConsumerState<OrdersScreen> {
       appBar: AppBar(
         title: Text(l.sectionOrders),
         actions: [
+          IconButton(
+            tooltip: l.exportExcel,
+            icon: const Icon(Icons.download),
+            onPressed: () => launchUrl(
+              ref.read(apiClientProvider).fileUri('/meals/${widget.mealId}/export/restaurant-order.xlsx'),
+              webOnlyWindowName: '_blank',
+            ),
+          ),
           IconButton(tooltip: l.finalize, icon: const Icon(Icons.lock_outline), onPressed: _finalize),
         ],
       ),

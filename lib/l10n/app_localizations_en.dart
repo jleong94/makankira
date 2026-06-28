@@ -482,4 +482,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get webPushNote =>
       'Web Push works on Android and desktop browsers (not iOS).';
+
+  @override
+  String get exportExcel => 'Export Excel';
+
+  @override
+  String get exportCsv => 'Export CSV';
 }

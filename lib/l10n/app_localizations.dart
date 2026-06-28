@@ -1035,6 +1035,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Web Push works on Android and desktop browsers (not iOS).'**
   String get webPushNote;
+
+  /// No description provided for @exportExcel.
+  ///
+  /// In en, this message translates to:
+  /// **'Export Excel'**
+  String get exportExcel;
+
+  /// No description provided for @exportCsv.
+  ///
+  /// In en, this message translates to:
+  /// **'Export CSV'**
+  String get exportCsv;
 }
 
 class _AppLocalizationsDelegate

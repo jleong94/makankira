@@ -62,6 +62,10 @@ class ApiClient {
       (await _send('PUT', path, body: body)) as Map<String, dynamic>;
   Future<void> delete(String path) async => _send('DELETE', path);
 
+  /// Absolute URL for a file/export endpoint (open in a new tab so the browser
+  /// downloads it with the session cookie).
+  Uri fileUri(String path, {Map<String, String>? query}) => _uri(path, query);
+
   /// Upload raw file bytes (e.g. a DuitNow QR image) to POST /api/files. The
   /// server reads fileKind/mealId/filename from the query and bytes from the body.
   Future<Map<String, dynamic>> uploadBytes(

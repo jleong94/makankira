@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../api/api_client.dart';
 import '../../api/models.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/formatters.dart';
@@ -39,6 +40,14 @@ class PaymentRequestsScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text(l.sectionPaymentRequests),
         actions: [
+          IconButton(
+            tooltip: l.exportCsv,
+            icon: const Icon(Icons.download),
+            onPressed: () => launchUrl(
+              ref.read(apiClientProvider).fileUri('/meals/$mealId/export/payment-requests.csv'),
+              webOnlyWindowName: '_blank',
+            ),
+          ),
           requests.maybeWhen(
             data: (list) => IconButton(
               tooltip: l.copyAll,
