@@ -16,10 +16,10 @@
     "build:web": "flutter build web --release --dart-define-from-file=config/frontend.local.json"
   },
   "dependencies": {
-    "@auth/core": "^0.34.3",
     "@libsql/client": "^0.17.4",
     "@vercel/blob": "^2.0.0",
     "exceljs": "^4.4.0",
+    "jose": "^6.2.3",
     "nanoid": "^5.1.16",
     "resend": "^6.16.0",
     "web-push": "^3.6.7"

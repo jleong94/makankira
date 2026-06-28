@@ -1163,7 +1163,7 @@ Add admin tooling or translation files for more languages, region-specific termi
 - Dart.
 - Google authentication as the default login method.
 - Facebook as a secondary login method.
-- Authentication implemented in-app with **Auth.js (`@auth/core`)** running in the `/api` layer (Section 15): Google and Facebook via built-in providers. Sessions are issued as httpOnly cookies, so no provider secret reaches the browser.
+- Authentication implemented in-app with **server-side token verification** in the `/api` layer (Section 15): the browser obtains a Google ID token or Facebook access token client-side and POSTs it to `POST /api/auth/login`, which verifies it server-side (Google JWKS with issuer/audience checks via `jose`; Facebook Graph `debug_token`), upserts the user, and issues a signed **httpOnly session cookie**. No provider secret reaches the browser. (This replaces the earlier Auth.js plan, which suits a server-rendered framework more than a Flutter SPA.)
 - Flutter localization using `flutter_localizations`, `intl`, and ARB translation files.
 - Turso database for persistent app data.
 - Excel import parsing and export generation run in the `/api` (TypeScript) layer (for example `exceljs`), not in Flutter. The Flutter UI only picks/uploads the source file and downloads the generated workbook.
@@ -1893,7 +1893,7 @@ All endpoints live under `/api` in the same Vercel app (Section 15) and exchange
 | GET | `/api/auth/me` | User | Current user; used for the login-session loading state (Screens 1, 2) |
 | PATCH | `/api/me` | User | Update profile: `displayName`, `mobileNumber`, `preferredLanguage` (Screens 2A, 2D) |
 
-Note: with **Auth.js (`@auth/core`)** the actual auth routes are provided by the library (for example `/api/auth/signin`, `/api/auth/callback/:provider`, `/api/auth/session`, `/api/auth/csrf`). The `POST /api/auth/login` and `GET /api/auth/me` rows above are a conceptual simplification mapped onto those routes.
+Note: authentication uses **server-side token verification** (not Auth.js). The browser obtains a Google ID token / Facebook access token client-side and calls `POST /api/auth/login`; the server verifies it (Google JWKS + issuer/audience via `jose`; Facebook Graph `debug_token`), upserts the user, and sets a signed httpOnly session cookie. `POST /api/auth/logout` clears it, and `GET /api/auth/me` returns the current user (or `{ "user": null }` when signed out, for the login-loading state).
 
 ### Profile Payment Defaults
 
@@ -2120,7 +2120,7 @@ POST /api/meals/meal_001/calculate
 | 6 | DuitNow QR | Optional; at least one receiving method is required (bank / DuitNow ID / QR). |
 | 7 | Multiple restaurants | No; one restaurant per session for MVP. |
 | 8 | Participant sign-in | Not required for MVP (owner-authenticated, same device); guest links are future. |
-| 9 | Auth implementation | In-app with **Auth.js (`@auth/core`)** in the `/api` layer: Google and Facebook via built-in providers (both free to use). (Instagram and Apple Sign In removed from scope — Apple requires a paid Apple Developer account.) Sessions are httpOnly cookies; no provider secret reaches the browser. |
+| 9 | Auth implementation | In-app **server-side token verification** in the `/api` layer: the client gets a Google ID token / Facebook access token and POSTs it to `/api/auth/login`, which verifies it (Google JWKS + issuer/audience via `jose`; Facebook Graph `debug_token`), upserts the user, and sets a signed httpOnly session cookie. Google and Facebook only (both free). (Chosen over Auth.js, which suits server-rendered frameworks more than a Flutter SPA; Instagram and Apple Sign In remain out of scope — Apple needs a paid account.) |
 | 10 | Platform | **Web only**. Installable, app-like **PWA on Android and desktop**; on **iOS, a responsive in-browser web app** (no iOS PWA / home-screen install), including in-app browsers such as WhatsApp. Native Android/iOS builds remain a future option on the same codebase. |
 | 11 | Company claim scope | Full bill by default; category- or participant-scoped claims use the manual path (future). |
 | 12 | Finance claim export | MVP: claim figures live in the payment Excel "Adjustments" tab; a dedicated finance claim export is a future enhancement. |
@@ -2225,15 +2225,14 @@ This is the one-time, day-0 setup the **project owner** performs to obtain the c
 
 Public (frontend) values are still stored as secrets for convenience but get compiled into the browser bundle, so treat them as non-sensitive. The three Vercel deploy values (`VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`) live in **GitHub secrets only** — they are used by the deploy workflow, not by the running app.
 
-### Redirect / callback URLs (needed by Google and Facebook)
+### Authorized origins / domains (needed by Google and Facebook)
 
-Auth.js exposes provider callbacks at `<origin>/api/auth/callback/<provider>`. Register these for every environment you use (the values must match exactly):
+Because login uses client-side sign-in + server-side token verification (not a redirect callback), you register **origins / domains**, not `/api/auth/callback/...` URLs:
 
-- Local: `http://localhost:3000/api/auth/callback/google` and `.../callback/facebook` (match your local API origin and port).
-- Preview: `https://<preview>.vercel.app/api/auth/callback/google` (and `/facebook`).
-- Production: `https://<your-domain>/api/auth/callback/google` (and `/facebook`).
+- **Google** — in the OAuth client, add **Authorized JavaScript origins** for each environment: `http://localhost:3000` (local), your `https://<preview>.vercel.app`, and your production origin. No redirect URI is required for the ID-token flow.
+- **Facebook** — under Facebook Login settings, add the app domains / **Allowed Domains for the JavaScript SDK**: `localhost`, your preview host, and your production host.
 
-For Google, also add the matching **authorized JavaScript origins** (for example `http://localhost:3000` and your production origin). Vercel preview URLs change per deployment, so for previews use a stable alias or the provider's test mode.
+Vercel preview URLs change per deployment, so for previews use a stable alias. Each value must match the origin the app is served from.
 
 ### 1. Google OAuth (free)
 
