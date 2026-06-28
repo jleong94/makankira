@@ -93,7 +93,6 @@ const backendEnv = {
   TURSO_DATABASE_URL: backend.tursoDatabaseUrl ?? '',
   TURSO_AUTH_TOKEN: backend.tursoAuthToken ?? '',
   GOOGLE_OAUTH_CLIENT_ID: frontend.googleOAuthClientId ?? '',
-  GOOGLE_OAUTH_CLIENT_SECRET: backend.googleOAuthClientSecret ?? '',
   FACEBOOK_APP_ID: frontend.facebookAppId ?? '',
   FACEBOOK_APP_SECRET: backend.facebookAppSecret ?? '',
   SESSION_SECRET: backend.sessionSecret ?? '',

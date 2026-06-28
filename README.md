@@ -1349,7 +1349,6 @@ frontend:                                  # PUBLIC values compiled into the web
 backend:                                   # SECRET values, server-side only
   tursoDatabaseUrl: ${TURSO_DATABASE_URL}
   tursoAuthToken: ${TURSO_AUTH_TOKEN}
-  googleOAuthClientSecret: ${GOOGLE_OAUTH_CLIENT_SECRET}
   facebookAppSecret: ${FACEBOOK_APP_SECRET}
   sessionSecret: ${SESSION_SECRET}
   fileStorageToken: ${BLOB_READ_WRITE_TOKEN}   # Vercel Blob token for QR/menu images
@@ -1375,7 +1374,6 @@ backend:                                   # SECRET values, server-side only
 | `facebookAppId` | Frontend | No (public) | `secrets.local` | GitHub secret |
 | `tursoDatabaseUrl` | Backend | Yes | `secrets.local` | GitHub secret to Vercel env |
 | `tursoAuthToken` | Backend | Yes | `secrets.local` | GitHub secret to Vercel env |
-| `googleOAuthClientSecret` | Backend | Yes | `secrets.local` | GitHub secret to Vercel env |
 | `facebookAppSecret` | Backend | Yes | `secrets.local` | GitHub secret to Vercel env |
 | `sessionSecret` | Backend | Yes | `secrets.local` | GitHub secret to Vercel env |
 | `fileStorageToken` (QR/menu images) | Backend | Yes | `secrets.local` | GitHub secret to Vercel env |
@@ -1462,7 +1460,6 @@ Required GitHub repository secrets:
 # App - backend (secret, runtime)
 TURSO_DATABASE_URL
 TURSO_AUTH_TOKEN
-GOOGLE_OAUTH_CLIENT_SECRET
 FACEBOOK_APP_SECRET
 SESSION_SECRET
 BLOB_READ_WRITE_TOKEN            # Vercel Blob storage token
@@ -1502,7 +1499,6 @@ jobs:
       # secret (backend) values
       TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
       TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
-      GOOGLE_OAUTH_CLIENT_SECRET: ${{ secrets.GOOGLE_OAUTH_CLIENT_SECRET }}
       FACEBOOK_APP_SECRET: ${{ secrets.FACEBOOK_APP_SECRET }}
       SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
       BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
@@ -2239,10 +2235,10 @@ Vercel preview URLs change per deployment, so for previews use a stable alias. E
 1. In **Google Cloud Console**, create a project (e.g. `MakanKira`).
 2. Configure the **OAuth consent screen** (External; app name, support email, scopes `email` and `profile`).
 3. **Credentials > Create credentials > OAuth client ID > Web application**.
-4. Add the authorized JavaScript origins and redirect URIs above.
-5. Copy the Client ID and Client Secret.
+4. Add the **authorized JavaScript origins** above (no redirect URI is needed for the ID-token flow).
+5. Copy the **Client ID**. (Google also issues a Client Secret, but this app's token-verify flow does not use it.)
 
-Yields: `GOOGLE_OAUTH_CLIENT_ID` (public), `GOOGLE_OAUTH_CLIENT_SECRET` (secret).
+Yields: `GOOGLE_OAUTH_CLIENT_ID` (public).
 
 ### 2. Facebook Login (free)
 
@@ -2307,16 +2303,15 @@ Yields: an `APP_BASE_URL` Actions variable (non-secret). No paid plan required.
 ### Recommended order
 
 1. Turso dev DB + self-generated secrets — app runs locally against a database.
-2. Google + Facebook OAuth (local redirect URIs) — login works locally.
+2. Google + Facebook OAuth (local JS origins / app domains) — login works locally.
 3. Resend + VAPID — reminders work.
-4. Vercel project + Blob + push all values into GitHub secrets — first deploy; then add the preview/production redirect URIs back into Google and Facebook.
+4. Vercel project + Blob + push all values into GitHub secrets — first deploy; then add the preview/production JS origins (Google) and app domains (Facebook).
 
 ### Secrets checklist
 
 | Value | Created in | Type | Free tier | Put in |
 | --- | --- | --- | --- | --- |
 | `GOOGLE_OAUTH_CLIENT_ID` | Google Cloud Console | Public | Yes | local, GitHub, Vercel |
-| `GOOGLE_OAUTH_CLIENT_SECRET` | Google Cloud Console | Secret | Yes | local, GitHub, Vercel |
 | `FACEBOOK_APP_ID` | Meta for Developers | Public | Yes | local, GitHub, Vercel |
 | `FACEBOOK_APP_SECRET` | Meta for Developers | Secret | Yes | local, GitHub, Vercel |
 | `TURSO_DATABASE_URL` | Turso | Secret | Yes | local, GitHub, Vercel |
