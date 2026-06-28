@@ -23,12 +23,12 @@ class _MealSetupScreenState extends ConsumerState<MealSetupScreen> {
   final _seat = TextEditingController();
   final _organizerName = TextEditingController();
   final _organizerContact = TextEditingController();
-  final _reminderLead = TextEditingController(text: '120');
 
   String? _mealType;
   bool _farewell = false;
   bool _reminder = true;
   DateTime? _dateTime;
+  DateTime? _remindAt;
   bool _saving = false;
 
   @override
@@ -42,7 +42,7 @@ class _MealSetupScreenState extends ConsumerState<MealSetupScreen> {
 
   @override
   void dispose() {
-    for (final c in [_title, _restaurant, _menuUrl, _seat, _organizerName, _organizerContact, _reminderLead]) {
+    for (final c in [_title, _restaurant, _menuUrl, _seat, _organizerName, _organizerContact]) {
       c.dispose();
     }
     super.dispose();
@@ -64,11 +64,56 @@ class _MealSetupScreenState extends ConsumerState<MealSetupScreen> {
     if (date == null || !mounted) return;
     final time = await showTimePicker(context: context, initialTime: TimeOfDay.fromDateTime(_dateTime ?? now));
     if (time == null || !mounted) return;
-    setState(() => _dateTime = DateTime(date.year, date.month, date.day, time.hour, time.minute));
+    final picked = DateTime(date.year, date.month, date.day, time.hour, time.minute);
+    setState(() {
+      _dateTime = picked;
+      // Pre-fill a sensible reminder (2h before the meal, editable). Also reset
+      // it if the new meal time leaves the chosen reminder not before the meal.
+      if (_reminder && (_remindAt == null || !_remindAt!.isBefore(picked))) {
+        final twoHoursBefore = picked.subtract(const Duration(hours: 2));
+        _remindAt = twoHoursBefore.isAfter(DateTime.now()) ? twoHoursBefore : null;
+      }
+    });
+  }
+
+  /// Pick the reminder date & time. Must be in the future and, when a meal time
+  /// is set, earlier than it.
+  Future<void> _pickRemindAt() async {
+    final l = AppLocalizations.of(context);
+    final now = DateTime.now();
+    final meal = _dateTime; // upper bound: reminder must be before the meal
+    if (meal != null && !meal.isAfter(now)) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l.reminderBeforeMeal)));
+      return;
+    }
+    final initial = _remindAt ?? (meal != null ? meal.subtract(const Duration(hours: 2)) : now);
+    final date = await showDatePicker(
+      context: context,
+      initialDate: initial.isBefore(now) ? now : initial,
+      firstDate: DateTime(now.year, now.month, now.day),
+      lastDate: meal ?? DateTime(now.year + 2),
+    );
+    if (date == null || !mounted) return;
+    final time = await showTimePicker(context: context, initialTime: TimeOfDay.fromDateTime(initial));
+    if (time == null || !mounted) return;
+    final picked = DateTime(date.year, date.month, date.day, time.hour, time.minute);
+    if (!picked.isAfter(now)) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l.reminderTimePast)));
+      return;
+    }
+    if (meal != null && !picked.isBefore(meal)) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l.reminderBeforeMeal)));
+      return;
+    }
+    setState(() => _remindAt = picked);
   }
 
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
+    if (_reminder && _remindAt == null) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).reminderTimeRequired)));
+      return;
+    }
     setState(() => _saving = true);
     final body = <String, dynamic>{
       'title': _title.text.trim(),
@@ -81,7 +126,7 @@ class _MealSetupScreenState extends ConsumerState<MealSetupScreen> {
       if (_organizerContact.text.trim().isNotEmpty) 'organizerContact': _organizerContact.text.trim(),
       if (_dateTime != null) 'mealDateTime': _isoWithOffset(_dateTime!),
       'reminderEnabled': _reminder,
-      'reminderLeadMinutes': int.tryParse(_reminderLead.text) ?? 120,
+      if (_reminder && _remindAt != null) 'remindAt': _isoWithOffset(_remindAt!),
     };
     try {
       final meal = await ref.read(mealsProvider.notifier).create(body);
@@ -161,14 +206,23 @@ class _MealSetupScreenState extends ConsumerState<MealSetupScreen> {
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
                   value: _reminder,
-                  onChanged: (v) => setState(() => _reminder = v),
+                  onChanged: (v) => setState(() {
+                    _reminder = v;
+                    // Pre-fill 2h before the meal when enabling, if a meal time is set.
+                    if (v && _remindAt == null && _dateTime != null) {
+                      final d = _dateTime!.subtract(const Duration(hours: 2));
+                      if (d.isAfter(DateTime.now())) _remindAt = d;
+                    }
+                  }),
                   title: Text(l.orderReminder),
                 ),
                 if (_reminder)
-                  TextFormField(
-                    controller: _reminderLead,
-                    decoration: InputDecoration(labelText: l.reminderLead),
-                    keyboardType: TextInputType.number,
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text(l.reminderTime),
+                    subtitle: Text(_remindAt == null ? l.notSet : formatDateTime(_isoWithOffset(_remindAt!))),
+                    trailing: const Icon(Icons.notifications_active),
+                    onTap: _pickRemindAt,
                   ),
                 const SizedBox(height: 24),
                 FilledButton(

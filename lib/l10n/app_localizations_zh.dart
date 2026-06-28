@@ -174,7 +174,16 @@ class AppLocalizationsZh extends AppLocalizations {
   String get orderReminder => '点餐提醒';
 
   @override
-  String get reminderLead => '提前提醒（分钟）';
+  String get reminderTime => '提醒时间';
+
+  @override
+  String get reminderTimeRequired => '请设置提醒日期和时间';
+
+  @override
+  String get reminderBeforeMeal => '提醒时间必须早于用餐时间';
+
+  @override
+  String get reminderTimePast => '请选择未来的日期和时间';
 
   @override
   String get mealCreated => '聚餐已创建';

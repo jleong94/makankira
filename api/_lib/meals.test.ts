@@ -14,7 +14,7 @@ import {
   setStatus,
   finalizeMeal,
   deleteMeal,
-  computeRemindAt,
+  normalizeRemindAt,
 } from './meals.js';
 import { HttpError } from './http.js';
 
@@ -47,22 +47,26 @@ after(() => {
   }
 });
 
-test('computeRemindAt subtracts the lead in UTC', () => {
-  assert.equal(computeRemindAt('2026-06-26T12:30:00+08:00', 120, true), '2026-06-26T02:30:00Z');
-  assert.equal(computeRemindAt('2026-06-26T12:30:00+08:00', 120, false), null);
-  assert.equal(computeRemindAt(null, 120, true), null);
+test('normalizeRemindAt stores UTC and rejects past / after-meal', () => {
+  const now = Date.parse('2026-06-28T00:00:00Z');
+  const meal = '2099-06-26T12:30:00+08:00';
+  assert.equal(normalizeRemindAt('2099-06-26T10:30:00+08:00', true, meal, now), '2099-06-26T02:30:00Z');
+  assert.equal(normalizeRemindAt('2099-06-26T10:30:00+08:00', false, meal, now), null); // disabled
+  assert.equal(normalizeRemindAt(null, true, meal, now), null); // no time set
+  assert.throws(() => normalizeRemindAt('2000-01-01T00:00:00Z', true, meal, now), /future/i);
+  assert.throws(() => normalizeRemindAt('2099-06-26T13:00:00+08:00', true, meal, now), /earlier/i);
 });
 
 test('createMeal prefills payment methods and the organizer profile', async () => {
   const meal = await createMeal(org, {
     title: 'Friday Team Lunch',
     restaurantName: 'ABC Chicken Rice',
-    mealDateTime: '2026-06-26T12:30:00+08:00',
+    mealDateTime: '2099-06-26T12:30:00+08:00',
     reminderEnabled: true,
-    reminderLeadMinutes: 120,
+    remindAt: '2099-06-26T10:30:00+08:00',
   });
   assert.equal(meal.status, 'draft');
-  assert.equal(meal.remind_at, '2026-06-26T02:30:00Z');
+  assert.equal(meal.remind_at, '2099-06-26T02:30:00Z');
   assert.equal(meal.organizer_name, 'Organizer');
 
   const methods = await listMethods(mealScope(String(meal.id)));
@@ -78,19 +82,19 @@ test('ownership: another user cannot access the meal', async () => {
   );
 });
 
-test('updateMeal recomputes remind_at; list search matches', async () => {
+test('updateMeal updates remind_at; list search matches', async () => {
   const meal = await createMeal(org, {
     title: 'Lunch A',
     restaurantName: 'R',
-    mealDateTime: '2026-06-26T12:30:00+08:00',
-    reminderLeadMinutes: 120,
+    mealDateTime: '2099-06-26T12:30:00+08:00',
+    remindAt: '2099-06-26T10:30:00+08:00',
   });
   const updated = await updateMeal(String(org.id), String(meal.id), {
     title: 'Lunch B',
-    reminderLeadMinutes: 60,
+    remindAt: '2099-06-26T11:30:00+08:00',
   });
   assert.equal(updated.title, 'Lunch B');
-  assert.equal(updated.remind_at, '2026-06-26T03:30:00Z');
+  assert.equal(updated.remind_at, '2099-06-26T03:30:00Z');
 
   const found = await listMeals(String(org.id), { q: 'Lunch B' });
   assert.ok(found.some((m) => m.id === meal.id));

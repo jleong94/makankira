@@ -175,7 +175,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get orderReminder => 'Order reminder';
 
   @override
-  String get reminderLead => 'Remind (minutes before)';
+  String get reminderTime => 'Remind at';
+
+  @override
+  String get reminderTimeRequired => 'Please set a reminder date & time';
+
+  @override
+  String get reminderBeforeMeal =>
+      'Reminder must be earlier than the meal time';
+
+  @override
+  String get reminderTimePast => 'Choose a future date & time';
 
   @override
   String get mealCreated => 'Meal created';

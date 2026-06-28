@@ -176,7 +176,17 @@ class AppLocalizationsMs extends AppLocalizations {
   String get orderReminder => 'Peringatan pesanan';
 
   @override
-  String get reminderLead => 'Ingatkan (minit sebelum)';
+  String get reminderTime => 'Ingatkan pada';
+
+  @override
+  String get reminderTimeRequired => 'Sila tetapkan tarikh & masa peringatan';
+
+  @override
+  String get reminderBeforeMeal =>
+      'Peringatan mesti lebih awal daripada masa makan';
+
+  @override
+  String get reminderTimePast => 'Pilih tarikh & masa akan datang';
 
   @override
   String get mealCreated => 'Majlis dicipta';
