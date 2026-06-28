@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../api/models.dart';
 import '../features/auth/auth_controller.dart';
 import '../features/auth/login_screen.dart';
+import '../features/auth/splash_screen.dart';
 import '../features/meals/dashboard_screen.dart';
 import '../features/meals/meal_detail_screen.dart';
 import '../features/meals/meal_setup_screen.dart';
@@ -27,18 +28,29 @@ final routerProvider = Provider<GoRouter>((ref) {
   );
 
   final router = GoRouter(
-    initialLocation: '/',
+    initialLocation: '/splash',
     refreshListenable: authListenable,
     redirect: (context, state) {
       final auth = authListenable.value;
-      if (auth.isLoading) return null; // wait for /auth/me
+      final loc = state.matchedLocation;
+
+      // Session check (/auth/me) still in flight: show the splash, never any
+      // authenticated content. This is what stops the dashboard from flashing
+      // for first-time visitors or expired sessions.
+      if (auth.isLoading) return loc == '/splash' ? null : '/splash';
+
       final loggedIn = auth is AsyncData<AppUser?> && auth.value != null;
-      final atLogin = state.matchedLocation == '/login';
-      if (!loggedIn) return atLogin ? null : '/login';
-      if (atLogin) return '/';
+
+      // Signed out (incl. first visit / expired session): the login page is the
+      // only reachable screen.
+      if (!loggedIn) return loc == '/login' ? null : '/login';
+
+      // Signed in: never sit on the splash or login screens.
+      if (loc == '/splash' || loc == '/login') return '/';
       return null;
     },
     routes: [
+      GoRoute(path: '/splash', builder: (context, state) => const SplashScreen()),
       GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
       GoRoute(path: '/', builder: (context, state) => const DashboardScreen()),
       GoRoute(path: '/meals/new', builder: (context, state) => const MealSetupScreen()),
