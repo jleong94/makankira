@@ -1,15 +1,22 @@
 /**
  * db.ts — Turso / libSQL client and small query helpers.
  *
- * The only module that talks to the database. A single client is reused across
- * warm serverless invocations. Money columns are integer sen; callers convert.
+ * The deployed Vercel function uses the pure-JS web client (`@libsql/client/web`,
+ * HTTP/hrana) — the default `@libsql/client` entry loads a native binding that
+ * fails in Vercel's bundled serverless runtime. Tests inject the native driver
+ * (for local `file:` databases) via setClient().
  */
 
-import { createClient } from '@libsql/client';
+import { createClient } from '@libsql/client/web';
 import type { Client, InArgs, InStatement, ResultSet, Row } from '@libsql/client';
 import { env, envOptional } from './env';
 
 let _client: Client | null = null;
+
+/** Test hook: inject a client (tests use the native driver for file: URLs). */
+export function setClient(client: Client): void {
+  _client = client;
+}
 
 export function db(): Client {
   if (!_client) {
