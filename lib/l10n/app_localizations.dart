@@ -591,6 +591,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Saved'**
   String get saved;
+
+  /// No description provided for @addOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Add order'**
+  String get addOrder;
+
+  /// No description provided for @participantName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get participantName;
+
+  /// No description provided for @mobileNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile number'**
+  String get mobileNumber;
+
+  /// No description provided for @role.
+  ///
+  /// In en, this message translates to:
+  /// **'Role'**
+  String get role;
+
+  /// No description provided for @rolePaying.
+  ///
+  /// In en, this message translates to:
+  /// **'Paying'**
+  String get rolePaying;
+
+  /// No description provided for @roleHonoree.
+  ///
+  /// In en, this message translates to:
+  /// **'Farewell honoree'**
+  String get roleHonoree;
+
+  /// No description provided for @myOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'This is my order'**
+  String get myOrder;
+
+  /// No description provided for @quantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Qty'**
+  String get quantity;
+
+  /// No description provided for @remarks.
+  ///
+  /// In en, this message translates to:
+  /// **'Remarks'**
+  String get remarks;
+
+  /// No description provided for @noOrders.
+  ///
+  /// In en, this message translates to:
+  /// **'No orders yet.'**
+  String get noOrders;
+
+  /// No description provided for @selectItems.
+  ///
+  /// In en, this message translates to:
+  /// **'Select at least one item.'**
+  String get selectItems;
+
+  /// No description provided for @viewList.
+  ///
+  /// In en, this message translates to:
+  /// **'Orders'**
+  String get viewList;
+
+  /// No description provided for @viewByItem.
+  ///
+  /// In en, this message translates to:
+  /// **'By item'**
+  String get viewByItem;
+
+  /// No description provided for @viewByPerson.
+  ///
+  /// In en, this message translates to:
+  /// **'By person'**
+  String get viewByPerson;
+
+  /// No description provided for @finalize.
+  ///
+  /// In en, this message translates to:
+  /// **'Finalize'**
+  String get finalize;
+
+  /// No description provided for @finalizeConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Lock orders and finalize? Items can no longer be edited.'**
+  String get finalizeConfirm;
+
+  /// No description provided for @orderSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Order added'**
+  String get orderSaved;
+
+  /// No description provided for @totalQuantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get totalQuantity;
+
+  /// No description provided for @deleteOrderConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this order?'**
+  String get deleteOrderConfirm;
 }
 
 class _AppLocalizationsDelegate

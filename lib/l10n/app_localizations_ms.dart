@@ -256,4 +256,62 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get saved => 'Disimpan';
+
+  @override
+  String get addOrder => 'Tambah pesanan';
+
+  @override
+  String get participantName => 'Nama';
+
+  @override
+  String get mobileNumber => 'Nombor telefon';
+
+  @override
+  String get role => 'Peranan';
+
+  @override
+  String get rolePaying => 'Membayar';
+
+  @override
+  String get roleHonoree => 'Tetamu perpisahan';
+
+  @override
+  String get myOrder => 'Ini pesanan saya';
+
+  @override
+  String get quantity => 'Kuantiti';
+
+  @override
+  String get remarks => 'Catatan';
+
+  @override
+  String get noOrders => 'Belum ada pesanan.';
+
+  @override
+  String get selectItems => 'Pilih sekurang-kurangnya satu item.';
+
+  @override
+  String get viewList => 'Pesanan';
+
+  @override
+  String get viewByItem => 'Ikut item';
+
+  @override
+  String get viewByPerson => 'Ikut orang';
+
+  @override
+  String get finalize => 'Muktamadkan';
+
+  @override
+  String get finalizeConfirm =>
+      'Kunci dan muktamadkan pesanan? Item tidak boleh disunting lagi.';
+
+  @override
+  String get orderSaved => 'Pesanan ditambah';
+
+  @override
+  String get totalQuantity => 'Jumlah';
+
+  @override
+  String get deleteOrderConfirm => 'Padam pesanan ini?';
 }

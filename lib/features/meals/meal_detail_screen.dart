@@ -109,8 +109,16 @@ class MealDetailScreen extends ConsumerWidget {
                 label: l.sectionMenu,
                 onTap: () => context.push('/meals/$mealId/menu'),
               ),
-              _SectionTile(icon: Icons.receipt_long, label: l.sectionOrders),
-              _SectionTile(icon: Icons.checklist, label: l.sectionReview),
+              _SectionTile(
+                icon: Icons.receipt_long,
+                label: l.sectionOrders,
+                onTap: () => context.push('/meals/$mealId/orders'),
+              ),
+              _SectionTile(
+                icon: Icons.checklist,
+                label: l.sectionReview,
+                onTap: () => context.push('/meals/$mealId/orders'),
+              ),
               _SectionTile(icon: Icons.calculate, label: l.sectionBill),
               _SectionTile(icon: Icons.payments, label: l.sectionPaymentRequests),
             ],

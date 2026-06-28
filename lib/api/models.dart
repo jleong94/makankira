@@ -155,3 +155,48 @@ class MenuItem {
         available: j['available'] as bool? ?? true,
       );
 }
+
+class OrderItem {
+  final String id;
+  final String menuItemId;
+  final int quantity;
+  final String? remarks;
+
+  OrderItem({required this.id, required this.menuItemId, required this.quantity, this.remarks});
+
+  factory OrderItem.fromJson(Map<String, dynamic> j) => OrderItem(
+        id: j['id'] as String? ?? '',
+        menuItemId: j['menuItemId'] as String,
+        quantity: (j['quantity'] as num?)?.toInt() ?? 1,
+        remarks: j['remarks'] as String?,
+      );
+}
+
+class ParticipantOrder {
+  final String id;
+  final String participantName;
+  final String participantRole;
+  final String? mobileNumber;
+  final List<OrderItem> items;
+
+  ParticipantOrder({
+    required this.id,
+    required this.participantName,
+    required this.participantRole,
+    this.mobileNumber,
+    required this.items,
+  });
+
+  bool get isHonoree => participantRole == 'farewell_honoree';
+
+  factory ParticipantOrder.fromJson(Map<String, dynamic> j) => ParticipantOrder(
+        id: j['id'] as String,
+        participantName: j['participantName'] as String,
+        participantRole: j['participantRole'] as String? ?? 'paying_participant',
+        mobileNumber: j['mobileNumber'] as String?,
+        items: (j['items'] as List? ?? const [])
+            .cast<Map<String, dynamic>>()
+            .map(OrderItem.fromJson)
+            .toList(),
+      );
+}

@@ -255,4 +255,62 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get saved => 'Saved';
+
+  @override
+  String get addOrder => 'Add order';
+
+  @override
+  String get participantName => 'Name';
+
+  @override
+  String get mobileNumber => 'Mobile number';
+
+  @override
+  String get role => 'Role';
+
+  @override
+  String get rolePaying => 'Paying';
+
+  @override
+  String get roleHonoree => 'Farewell honoree';
+
+  @override
+  String get myOrder => 'This is my order';
+
+  @override
+  String get quantity => 'Qty';
+
+  @override
+  String get remarks => 'Remarks';
+
+  @override
+  String get noOrders => 'No orders yet.';
+
+  @override
+  String get selectItems => 'Select at least one item.';
+
+  @override
+  String get viewList => 'Orders';
+
+  @override
+  String get viewByItem => 'By item';
+
+  @override
+  String get viewByPerson => 'By person';
+
+  @override
+  String get finalize => 'Finalize';
+
+  @override
+  String get finalizeConfirm =>
+      'Lock orders and finalize? Items can no longer be edited.';
+
+  @override
+  String get orderSaved => 'Order added';
+
+  @override
+  String get totalQuantity => 'Total';
+
+  @override
+  String get deleteOrderConfirm => 'Delete this order?';
 }

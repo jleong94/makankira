@@ -253,4 +253,61 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get saved => '已保存';
+
+  @override
+  String get addOrder => '添加点餐';
+
+  @override
+  String get participantName => '姓名';
+
+  @override
+  String get mobileNumber => '手机号';
+
+  @override
+  String get role => '角色';
+
+  @override
+  String get rolePaying => '付款';
+
+  @override
+  String get roleHonoree => '欢送对象';
+
+  @override
+  String get myOrder => '这是我的点餐';
+
+  @override
+  String get quantity => '数量';
+
+  @override
+  String get remarks => '备注';
+
+  @override
+  String get noOrders => '还没有点餐。';
+
+  @override
+  String get selectItems => '请至少选择一个项目。';
+
+  @override
+  String get viewList => '点餐';
+
+  @override
+  String get viewByItem => '按项目';
+
+  @override
+  String get viewByPerson => '按人';
+
+  @override
+  String get finalize => '确认锁定';
+
+  @override
+  String get finalizeConfirm => '锁定并确认点餐？之后无法再编辑。';
+
+  @override
+  String get orderSaved => '已添加点餐';
+
+  @override
+  String get totalQuantity => '合计';
+
+  @override
+  String get deleteOrderConfirm => '删除此点餐？';
 }
