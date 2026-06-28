@@ -5,7 +5,7 @@
  * English is the fallback (README Section 11, Language).
  */
 
-import type { Locale } from './validate';
+import type { Locale } from './validate.js';
 
 export interface PaymentLabels {
   greeting: (name: string, meal: string, amount: string) => string;

@@ -51,6 +51,14 @@ jobs:
       - name: Install JS dependencies
         run: npm ci
 
+      # Fail fast if the /api TypeScript is broken. With NodeNext resolution this
+      # also enforces explicit .js extensions on relative imports — the Vercel
+      # function is native ESM, so a missing extension crashes every route at
+      # cold start (FUNCTION_INVOCATION_FAILED). esbuild transpiles without
+      # type-checking, so this step is the only thing that catches it pre-deploy.
+      - name: Typecheck the API
+        run: npm run typecheck
+
       - name: Resolve profile config (writes config/frontend.$APP_PROFILE.json)
         run: npm run config
 

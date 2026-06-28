@@ -4,11 +4,11 @@
  */
 
 import ExcelJS from 'exceljs';
-import { query, queryOne } from './db';
-import { HttpError } from './http';
-import { exportLabels } from './i18n';
-import { orderSummary } from './orders';
-import { buildRequests } from './paymentRequests';
+import { query, queryOne } from './db.js';
+import { HttpError } from './http.js';
+import { exportLabels } from './i18n.js';
+import { orderSummary } from './orders.js';
+import { buildRequests } from './paymentRequests.js';
 
 const rm = (cents: unknown): number => Number(cents ?? 0) / 100;
 

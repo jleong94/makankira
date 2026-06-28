@@ -6,9 +6,9 @@
  */
 
 import type { Row, InStatement } from '@libsql/client';
-import { query, queryOne, batchWrite } from './db';
-import { newId } from './ids';
-import { HttpError } from './http';
+import { query, queryOne, batchWrite } from './db.js';
+import { newId } from './ids.js';
+import { HttpError } from './http.js';
 
 const METHOD_TYPES = ['bank_account', 'duitnow_id', 'duitnow_qr', 'custom'] as const;
 type MethodType = (typeof METHOD_TYPES)[number];

@@ -2,7 +2,7 @@
  * validate.ts — small shared validators (README Section 11).
  */
 
-import { HttpError } from './http';
+import { HttpError } from './http.js';
 
 export type Locale = 'en' | 'zh' | 'ms';
 

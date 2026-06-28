@@ -12,10 +12,10 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import type { Row } from '@libsql/client';
 import { SignJWT, jwtVerify, createRemoteJWKSet } from 'jose';
-import { env, isProduction } from './env';
-import { queryOne } from './db';
-import { newId } from './ids';
-import { HttpError } from './http';
+import { env, isProduction } from './env.js';
+import { queryOne } from './db.js';
+import { newId } from './ids.js';
+import { HttpError } from './http.js';
 
 const SESSION_TTL_SECONDS = 60 * 60 * 24 * 30; // 30 days
 

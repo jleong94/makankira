@@ -6,11 +6,11 @@
 
 import type { VercelRequest } from '@vercel/node';
 import type { Row, InStatement } from '@libsql/client';
-import { query, queryOne, execute, batchWrite } from './db';
-import { newId } from './ids';
-import { HttpError } from './http';
-import { requireUser } from './auth';
-import { prefillSessionMethods, listMethods, mealScope } from './paymentMethods';
+import { query, queryOne, execute, batchWrite } from './db.js';
+import { newId } from './ids.js';
+import { HttpError } from './http.js';
+import { requireUser } from './auth.js';
+import { prefillSessionMethods, listMethods, mealScope } from './paymentMethods.js';
 
 export type MealStatus =
   | 'draft'

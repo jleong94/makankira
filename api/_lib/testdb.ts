@@ -10,7 +10,7 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { tmpdir } from 'node:os';
 import { createClient } from '@libsql/client';
-import { setClient } from './db';
+import { setClient } from './db.js';
 
 export async function setupTestDb(): Promise<string> {
   const file = resolve(tmpdir(), `mk-test-${process.pid}-${Date.now()}.db`);

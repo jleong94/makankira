@@ -3,20 +3,20 @@ import assert from 'node:assert/strict';
 import { rmSync } from 'node:fs';
 import ExcelJS from 'exceljs';
 import type { Row } from '@libsql/client';
-import { setupTestDb } from './testdb';
-import { upsertUser } from './auth';
-import { createMeal } from './meals';
-import { addMenuItem } from './menu';
-import { createOrder } from './orders';
-import { addMethod, mealScope } from './paymentMethods';
-import { upsertBill } from './bill';
-import { runCalculation } from './calculate';
+import { setupTestDb } from './testdb.js';
+import { upsertUser } from './auth.js';
+import { createMeal } from './meals.js';
+import { addMenuItem } from './menu.js';
+import { createOrder } from './orders.js';
+import { addMethod, mealScope } from './paymentMethods.js';
+import { upsertBill } from './bill.js';
+import { runCalculation } from './calculate.js';
 import {
   buildRestaurantOrderWorkbook,
   buildPaymentCalculationWorkbook,
   buildPaymentRequestsCsv,
   buildMenuTemplateWorkbook,
-} from './exports';
+} from './exports.js';
 
 let dbFile: string;
 let org: Row;

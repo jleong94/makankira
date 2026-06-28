@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { assertUploadType, validateFileKind } from './files';
+import { assertUploadType, validateFileKind } from './files.js';
 
 test('QR/menu images must be PNG/JPG/JPEG/WebP', () => {
   assert.doesNotThrow(() => assertUploadType('duitnow_qr', 'image/png'));

@@ -4,9 +4,9 @@
  */
 
 import type { Row } from '@libsql/client';
-import { query, queryOne, execute } from './db';
-import { newId } from './ids';
-import { HttpError } from './http';
+import { query, queryOne, execute } from './db.js';
+import { newId } from './ids.js';
+import { HttpError } from './http.js';
 
 const asStr = (v: unknown): string | null => (typeof v === 'string' && v.length > 0 ? v : null);
 
