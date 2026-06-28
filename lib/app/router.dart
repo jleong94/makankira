@@ -1,0 +1,41 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import '../api/models.dart';
+import '../features/auth/auth_controller.dart';
+import '../features/auth/login_screen.dart';
+import '../features/meals/dashboard_screen.dart';
+
+/// App router with an auth gate: unauthenticated users go to /login.
+final routerProvider = Provider<GoRouter>((ref) {
+  final authListenable = ValueNotifier<AsyncValue<AppUser?>>(const AsyncLoading());
+  ref.listen<AsyncValue<AppUser?>>(
+    authProvider,
+    (_, next) => authListenable.value = next,
+    fireImmediately: true,
+  );
+
+  final router = GoRouter(
+    initialLocation: '/',
+    refreshListenable: authListenable,
+    redirect: (context, state) {
+      final auth = authListenable.value;
+      if (auth.isLoading) return null; // wait for /auth/me
+      final loggedIn = auth is AsyncData<AppUser?> && auth.value != null;
+      final atLogin = state.matchedLocation == '/login';
+      if (!loggedIn) return atLogin ? null : '/login';
+      if (atLogin) return '/';
+      return null;
+    },
+    routes: [
+      GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
+      GoRoute(path: '/', builder: (context, state) => const DashboardScreen()),
+    ],
+  );
+
+  ref.onDispose(() {
+    router.dispose();
+    authListenable.dispose();
+  });
+  return router;
+});
