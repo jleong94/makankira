@@ -1,10 +1,10 @@
 /**
- * Single catch-all API function (README Section 17).
+ * Single API function (README Section 17).
  *
- * All /api/* routes are dispatched here so the whole backend is ONE Vercel
- * serverless function — staying within the Hobby plan's 12-function limit.
- * Business logic lives in _lib/*; this file only parses the path, enforces
- * method + CSRF, and calls the right domain function.
+ * vercel.json rewrites every /api/* request to /api?__path=<rest>, so the whole
+ * backend is ONE Vercel serverless function (api/index.ts) — within the Hobby
+ * plan's 12-function limit. Business logic lives in _lib/*; this file parses the
+ * path, enforces method + CSRF, and calls the right domain function.
  */
 
 import { buffer } from 'node:stream/consumers';
@@ -395,8 +395,10 @@ const routes: Route[] = [
 ];
 
 export default withErrors(async (req, res) => {
-  const raw = req.query.path;
-  const seg = Array.isArray(raw) ? raw.map(String) : typeof raw === 'string' && raw.length > 0 ? [raw] : [];
+  // The path is delivered by the vercel.json rewrite as ?__path=<rest>.
+  const raw = req.query.__path;
+  const rel = Array.isArray(raw) ? raw.join('/') : typeof raw === 'string' ? raw : '';
+  const seg = rel.split('/').filter(Boolean);
   const method = req.method ?? 'GET';
 
   // CSRF defense-in-depth for state-changing requests (cron has no Origin and is
