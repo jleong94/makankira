@@ -1,0 +1,15 @@
+# =====================================================================
+# MASTER CONFIG (README Section 15)
+# Selects the active profile and holds shared, non-secret defaults.
+# CI/CD overrides the profile via the APP_PROFILE env var.
+# This is the single switch between environments.
+# =====================================================================
+
+# Active profile. Defaults to "local". CI/CD sets APP_PROFILE.
+activeProfile: ${APP_PROFILE:local}     # local | staging | production
+
+# Shared, non-secret defaults (overridable per profile).
+app:
+  name: MakanKira
+  defaultLocale: en
+  supportedLocales: [en, zh, ms]

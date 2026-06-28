@@ -1,0 +1,78 @@
+name: Deploy to Vercel
+
+# Builds the Flutter web UI + TypeScript /api and deploys to Vercel.
+# - push to master  -> production
+# - pull request     -> staging / preview
+# All values come from GitHub repository secrets (README Section 15).
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      APP_PROFILE: ${{ github.ref == 'refs/heads/master' && 'production' || 'staging' }}
+      # --- public (frontend build) values ---
+      GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}
+      FACEBOOK_APP_ID: ${{ secrets.FACEBOOK_APP_ID }}
+      VAPID_PUBLIC_KEY: ${{ secrets.VAPID_PUBLIC_KEY }}
+      # --- secret (backend / runtime) values ---
+      TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
+      TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
+      GOOGLE_OAUTH_CLIENT_SECRET: ${{ secrets.GOOGLE_OAUTH_CLIENT_SECRET }}
+      FACEBOOK_APP_SECRET: ${{ secrets.FACEBOOK_APP_SECRET }}
+      SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+      BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
+      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
+      CRON_SECRET: ${{ secrets.CRON_SECRET }}
+      # --- Vercel deploy credentials (GitHub-only) ---
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install JS dependencies
+        run: npm ci
+
+      - name: Resolve profile config (writes config/frontend.$APP_PROFILE.json)
+        run: npm run config
+
+      - name: Run database migrations against the target Turso DB
+        run: npm run migrate
+
+      - name: Build Flutter web (public config only)
+        run: |
+          flutter pub get
+          flutter build web --release --dart-define-from-file=config/frontend.${APP_PROFILE}.json
+
+      - name: Install Vercel CLI
+        run: npm i -g vercel
+
+      - name: Pull Vercel project settings
+        run: vercel pull --yes --environment=${{ github.ref == 'refs/heads/master' && 'production' || 'preview' }} --token "$VERCEL_TOKEN"
+
+      - name: Sync runtime secrets to Vercel
+        run: node scripts/sync-vercel-env.mjs
+
+      - name: Vercel build (api functions + static web)
+        run: vercel build ${{ github.ref == 'refs/heads/master' && '--prod' || '' }} --token "$VERCEL_TOKEN"
+
+      - name: Deploy to Vercel (prebuilt)
+        run: vercel deploy --prebuilt ${{ github.ref == 'refs/heads/master' && '--prod' || '' }} --token "$VERCEL_TOKEN"

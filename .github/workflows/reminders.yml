@@ -1,0 +1,20 @@
+name: Order reminders
+
+# Free scheduled cron (GitHub Actions, not paid Vercel Cron). Calls the deployed
+# reminder endpoint, which finds due meal sessions and sends email + Web Push to
+# the organizer before meal time. README Section 15.
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"   # every ~15 min (GitHub may delay under load)
+  workflow_dispatch: {}        # allow manual trigger
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger reminder run
+        run: curl -fsS -X POST "$APP_BASE_URL/api/cron/reminders" -H "Authorization: Bearer $CRON_SECRET"
+        env:
+          APP_BASE_URL: ${{ vars.APP_BASE_URL }}     # non-secret Actions variable: production origin
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
