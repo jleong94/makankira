@@ -166,4 +166,30 @@ export function toPaymentStatusEvent(row: Row): Record<string, unknown> {
   };
 }
 
+export function toUploadedFile(row: Row): Record<string, unknown> {
+  return {
+    id: row.id,
+    ownerUserId: row.owner_user_id,
+    mealSessionId: str(row.meal_session_id),
+    fileKind: row.file_kind,
+    blobUrl: row.blob_url,
+    blobPathname: str(row.blob_pathname),
+    contentType: str(row.content_type),
+    sizeBytes: num(row.size_bytes),
+    originalFilename: str(row.original_filename),
+    createdAt: row.created_at,
+  };
+}
+
+/** Push subscription DTO — never echoes the p256dh/auth secrets. */
+export function toPushSubscription(row: Row): Record<string, unknown> {
+  return {
+    id: row.id,
+    userId: row.user_id,
+    endpoint: row.endpoint,
+    userAgent: str(row.user_agent),
+    createdAt: row.created_at,
+  };
+}
+
 export const serdeHelpers = { str, num, bool };

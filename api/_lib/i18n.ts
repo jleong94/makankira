@@ -131,3 +131,24 @@ const EXPORT: Record<Locale, ExportLabels> = {
 export function exportLabels(locale: string): ExportLabels {
   return EXPORT[(locale as Locale) in EXPORT ? (locale as Locale) : 'en'];
 }
+
+// ---- Order-submission reminder text --------------------------------------
+
+const REMINDER: Record<Locale, (meal: string) => { subject: string; body: string }> = {
+  en: (meal) => ({
+    subject: `Reminder: orders for ${meal}`,
+    body: `Please submit or confirm the orders for ${meal} before the meal time.`,
+  }),
+  zh: (meal) => ({
+    subject: `提醒：${meal} 的点餐`,
+    body: `请在用餐前提交或确认「${meal}」的点餐。`,
+  }),
+  ms: (meal) => ({
+    subject: `Peringatan: pesanan untuk ${meal}`,
+    body: `Sila hantar atau sahkan pesanan untuk ${meal} sebelum waktu makan.`,
+  }),
+};
+
+export function reminderText(locale: string, meal: string): { subject: string; body: string } {
+  return REMINDER[(locale as Locale) in REMINDER ? (locale as Locale) : 'en'](meal);
+}
