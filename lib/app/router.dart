@@ -18,7 +18,19 @@ import '../features/settings/payment_defaults_screen.dart';
 import '../features/settings/profile_screen.dart';
 import '../features/settings/settings_screen.dart';
 
-/// App router with an auth gate: unauthenticated users go to /login.
+/// Sanitises a `from` redirect target: only in-app absolute paths are allowed
+/// (never protocol-relative or external URLs), and never the gate screens
+/// themselves (which would loop). Falls back to the dashboard.
+String _safeDestination(String? from) {
+  if (from == null || from.isEmpty) return '/';
+  if (!from.startsWith('/') || from.startsWith('//')) return '/';
+  if (from == '/splash' || from.startsWith('/splash?')) return '/';
+  if (from == '/login' || from.startsWith('/login?')) return '/';
+  return from;
+}
+
+/// App router with an auth gate: unauthenticated users go to /login, then are
+/// returned to the page they originally wanted after signing in.
 final routerProvider = Provider<GoRouter>((ref) {
   final authListenable = ValueNotifier<AsyncValue<AppUser?>>(const AsyncLoading());
   ref.listen<AsyncValue<AppUser?>>(
@@ -33,20 +45,35 @@ final routerProvider = Provider<GoRouter>((ref) {
     redirect: (context, state) {
       final auth = authListenable.value;
       final loc = state.matchedLocation;
+      final atSplash = loc == '/splash';
+      final atLogin = loc == '/login';
+
+      // Where the user is actually trying to go. While parked on the splash or
+      // login screens we carry it in a `from` query param; elsewhere it's the
+      // current location (e.g. a deep link, or the page they were on when the
+      // session expired).
+      String intended() => (atSplash || atLogin)
+          ? _safeDestination(state.uri.queryParameters['from'])
+          : _safeDestination(state.uri.toString());
 
       // Session check (/auth/me) still in flight: show the splash, never any
       // authenticated content. This is what stops the dashboard from flashing
       // for first-time visitors or expired sessions.
-      if (auth.isLoading) return loc == '/splash' ? null : '/splash';
+      if (auth.isLoading) {
+        return atSplash ? null : '/splash?from=${Uri.encodeComponent(intended())}';
+      }
 
       final loggedIn = auth is AsyncData<AppUser?> && auth.value != null;
 
-      // Signed out (incl. first visit / expired session): the login page is the
-      // only reachable screen.
-      if (!loggedIn) return loc == '/login' ? null : '/login';
+      // Signed out (first visit / expired session): login is the only reachable
+      // screen; remember where they were headed so we can return after sign-in.
+      if (!loggedIn) {
+        return atLogin ? null : '/login?from=${Uri.encodeComponent(intended())}';
+      }
 
-      // Signed in: never sit on the splash or login screens.
-      if (loc == '/splash' || loc == '/login') return '/';
+      // Signed in: leave the splash/login screens for the page they actually
+      // wanted (their deep link, or where they were when the session expired).
+      if (atSplash || atLogin) return intended();
       return null;
     },
     routes: [
