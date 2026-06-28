@@ -1,5 +1,7 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../api/api_client.dart';
 import '../../api/models.dart';
 import '../../l10n/app_localizations.dart';
 import 'payment_defaults_controller.dart';
@@ -105,6 +107,8 @@ class _MethodEditorState extends ConsumerState<_MethodEditor> {
   late final TextEditingController _duitNowId;
   late final TextEditingController _instructions;
   late bool _isDefault;
+  String? _qrFileId;
+  bool _uploading = false;
   bool _saving = false;
 
   @override
@@ -112,7 +116,7 @@ class _MethodEditorState extends ConsumerState<_MethodEditor> {
     super.initState();
     final m = widget.method;
     _type = m?.methodType ?? 'bank_account';
-    if (_type == 'duitnow_qr') _type = 'bank_account'; // QR upload handled later
+    _qrFileId = m?.qrImageFileId;
     _accountName = TextEditingController(text: m?.accountName ?? '');
     _bankName = TextEditingController(text: m?.bankName ?? '');
     _accountNumber = TextEditingController(text: m?.accountNumber ?? '');
@@ -131,6 +135,31 @@ class _MethodEditorState extends ConsumerState<_MethodEditor> {
 
   String? _t(TextEditingController c) => c.text.trim().isEmpty ? null : c.text.trim();
 
+  Future<void> _pickQr() async {
+    final res = await FilePicker.pickFiles(type: FileType.image, withData: true);
+    final file = (res != null && res.files.isNotEmpty) ? res.files.first : null;
+    final bytes = file?.bytes;
+    if (bytes == null) return;
+    final ext = (file!.extension ?? '').toLowerCase();
+    final contentType = ext == 'png' ? 'image/png' : (ext == 'webp' ? 'image/webp' : 'image/jpeg');
+    setState(() => _uploading = true);
+    try {
+      final data = await ref.read(apiClientProvider).uploadBytes(
+            '/files',
+            bytes,
+            contentType: contentType,
+            query: {'fileKind': 'duitnow_qr', 'filename': file.name},
+          );
+      if (!mounted) return;
+      setState(() => _qrFileId = data['id'] as String?);
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$e')));
+    } finally {
+      if (mounted) setState(() => _uploading = false);
+    }
+  }
+
   Future<void> _save() async {
     setState(() => _saving = true);
     final body = <String, dynamic>{
@@ -140,6 +169,7 @@ class _MethodEditorState extends ConsumerState<_MethodEditor> {
       'accountNumber': _t(_accountNumber),
       'duitNowId': _t(_duitNowId),
       'instructions': _t(_instructions),
+      'qrImageFileId': _qrFileId,
       'isDefault': _isDefault,
     };
     final repo = ref.read(paymentDefaultsRepositoryProvider);
@@ -172,6 +202,7 @@ class _MethodEditorState extends ConsumerState<_MethodEditor> {
             items: [
               DropdownMenuItem(value: 'bank_account', child: Text(l.methodBank)),
               DropdownMenuItem(value: 'duitnow_id', child: Text(l.methodDuitNowId)),
+              DropdownMenuItem(value: 'duitnow_qr', child: Text(l.methodDuitNowQr)),
               DropdownMenuItem(value: 'custom', child: Text(l.methodCustom)),
             ],
             onChanged: (v) => setState(() => _type = v ?? 'bank_account'),
@@ -185,6 +216,22 @@ class _MethodEditorState extends ConsumerState<_MethodEditor> {
             TextField(controller: _accountName, decoration: InputDecoration(labelText: l.accountName)),
           ] else if (_type == 'duitnow_id') ...[
             TextField(controller: _duitNowId, decoration: InputDecoration(labelText: l.duitNowIdLabel)),
+            const SizedBox(height: 12),
+            TextField(controller: _accountName, decoration: InputDecoration(labelText: l.accountName)),
+          ] else if (_type == 'duitnow_qr') ...[
+            Row(
+              children: [
+                OutlinedButton.icon(
+                  onPressed: _uploading ? null : _pickQr,
+                  icon: _uploading
+                      ? const SizedBox(height: 18, width: 18, child: CircularProgressIndicator(strokeWidth: 2))
+                      : const Icon(Icons.upload),
+                  label: Text(l.methodDuitNowQr),
+                ),
+                const SizedBox(width: 12),
+                if (_qrFileId != null) const Icon(Icons.check_circle, color: Colors.green),
+              ],
+            ),
             const SizedBox(height: 12),
             TextField(controller: _accountName, decoration: InputDecoration(labelText: l.accountName)),
           ] else ...[

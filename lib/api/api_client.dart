@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'client_factory_io.dart' if (dart.library.html) 'client_factory_web.dart';
@@ -60,6 +61,27 @@ class ApiClient {
   Future<Map<String, dynamic>> putJson(String path, {Object? body}) async =>
       (await _send('PUT', path, body: body)) as Map<String, dynamic>;
   Future<void> delete(String path) async => _send('DELETE', path);
+
+  /// Upload raw file bytes (e.g. a DuitNow QR image) to POST /api/files. The
+  /// server reads fileKind/mealId/filename from the query and bytes from the body.
+  Future<Map<String, dynamic>> uploadBytes(
+    String path,
+    Uint8List bytes, {
+    required String contentType,
+    Map<String, String>? query,
+  }) async {
+    final res = await _client.post(_uri(path, query), headers: {'content-type': contentType}, body: bytes);
+    final dynamic data = res.body.isEmpty ? null : jsonDecode(res.body);
+    if (res.statusCode >= 400) {
+      final err = (data is Map && data['error'] is Map) ? data['error'] as Map : const {};
+      throw ApiException(
+        res.statusCode,
+        (err['code'] ?? 'error').toString(),
+        (err['message'] ?? 'Upload failed').toString(),
+      );
+    }
+    return (data ?? <String, dynamic>{}) as Map<String, dynamic>;
+  }
 }
 
 final apiClientProvider = Provider<ApiClient>((ref) => ApiClient());
